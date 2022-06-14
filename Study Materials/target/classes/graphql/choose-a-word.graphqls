@@ -1,0 +1,24 @@
+type ChooseAWordQuestionContent implements QuestionContent {
+    id: Int,
+    content: [String],
+    correctAnswers: [[String]],
+    wordChoice: [[String]]
+}
+
+input ChooseAWordQuestionContentInput {
+    content: [String],
+    correctAnswers: [[String]],
+    wordChoice: [[String]]
+}
+
+input ChooseAWordExerciseInput {
+    title: String,
+    commonChoice: [String],
+    questions: [ChooseAWordQuestionContentInput]
+}
+
+
+extend type Mutation {
+    createChooseAWordQuestion(token: String, exerciseId: Int, input: ChooseAWordQuestionContentInput): ChooseAWordQuestionContent,
+    createChooseAWordExercise(token: String, chapterId: Int, input: ChooseAWordExerciseInput): Exercise
+}

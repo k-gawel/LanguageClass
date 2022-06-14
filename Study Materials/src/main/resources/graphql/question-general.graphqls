@@ -1,0 +1,49 @@
+input ClosedQuestionAnswerInput {
+    questionId: Int!,
+    answerId: Int,
+    answers: [String]
+}
+
+type QuestionAnswer {
+    id: Int,
+    question: QuestionContent,
+    answers: [String]
+}
+
+type ExerciseAnswer {
+    id: Int,
+    exerciseContent: Exercise,
+    createdAt: Int,
+    answers: [QuestionAnswer]
+}
+
+interface QuestionEvaluation {
+    id: Int,
+    answer: QuestionAnswer
+}
+
+type ExerciseEvaluation {
+    id: Int,
+    answer: ExerciseAnswer,
+    questionEvaluations: [QuestionEvaluation],
+    rating: Int
+}
+
+type ExerciseAnswerAndEvaluation {
+    answer: ExerciseAnswer,
+    evaluation: ExerciseEvaluation
+}
+
+type ClosedQuestionEvaluation implements QuestionEvaluation {
+    id: Int,
+    answer: QuestionAnswer,
+    areAnswersCorrect: [Boolean]
+}
+extend type Query {
+    getExerciseAnswersAndEvaluations(exerciseId: Int): [ExerciseAnswerAndEvaluation],
+    getExerciseAnswerAndEvaluation(answerId: Int): ExerciseAnswerAndEvaluation
+}
+
+extend type Mutation {
+    answerClosedQuestionExercise(exerciseId: Int, answers: [ClosedQuestionAnswerInput]): ExerciseAnswerAndEvaluation
+}

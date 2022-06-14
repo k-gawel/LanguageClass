@@ -1,0 +1,19 @@
+input FillAWordQuestionInput {
+    content: [String],
+    correctAnswers: [[String]]
+}
+
+type FillAWordQuestion implements QuestionContent {
+    id: Int,
+    content: [String]
+}
+
+input FillAWordExerciseInput {
+    title: String,
+    questions: [FillAWordQuestionInput]
+}
+
+extend type Mutation {
+    createFillAWordQuestion (exerciseId: Int, input: FillAWordQuestionInput, place: Int): FillAWordQuestion
+    createFillAWordExercise(chapterId: Int, input: FillAWordExerciseInput, place: Int): Exercise
+}
