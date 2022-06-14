@@ -1,7 +1,7 @@
 import {Container, Row} from "react-bootstrap";
 import {useParams} from "react-router-dom";
 import {gql, useQuery} from "@apollo/client";
-import ChooseAWordExercise from "../choose-a-word-question/choos-a-word-exercise";
+import ChooseAWordExercise from "../choose-a-word-question/exercise";
 
 const FETCH = gql`
     query GetAnswerAndEvaluation($exerciseId: Int, $answerId: Int) {

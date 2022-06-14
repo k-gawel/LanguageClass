@@ -10,17 +10,16 @@ import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterp
 import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.question.QuestionAnswer;
 import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.question.evaluation.ClosedQuestionEvaluation;
 import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.question.questions.FillAWordQuestion;
+import org.tutor.materials.service.materialsource.question.ClosedQuestionService;
 
 import java.util.List;
 
-public interface FillAWordService {
+public interface FillAWordService extends ClosedQuestionService {
 
     FillAWordQuestion createQuestion(FillAWordQuestionInput input);
-
     ExerciseContent createExercise(Chapter chapter, FillAWordExerciseInput inputs);
 
     QuestionAnswer answer(FillAWordQuestion question, ClosedQuestionAnswerInput input);
-    ExerciseAnswer answer(ExerciseContent exercise, List<ClosedQuestionAnswerInput> answers);
 
     ClosedQuestionEvaluation evaluate(QuestionAnswer questionAnswer);
     ExerciseEvaluation evaluate(ExerciseAnswer exerciseAnswer);

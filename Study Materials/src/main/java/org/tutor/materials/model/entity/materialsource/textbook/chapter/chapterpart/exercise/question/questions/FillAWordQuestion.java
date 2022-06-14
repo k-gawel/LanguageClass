@@ -18,6 +18,6 @@ public class FillAWordQuestion extends ClosedQuestionContent {
 
     @Column
     @Convert(converter = StringArrayToStringConverter.class)
-    List<String> contentParts = new ArrayList<>();
+    List<String> content = new ArrayList<>();
 
 }

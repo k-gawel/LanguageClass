@@ -12,6 +12,7 @@ import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterp
 import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.question.QuestionAnswer;
 import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.question.evaluation.ClosedQuestionEvaluation;
 import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.question.questions.ChooseAWordContent;
+import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.question.questions.FillAWordQuestion;
 
 import java.util.List;
 
@@ -56,6 +57,7 @@ class ChooseAWordFacade implements ChooseAWordService {
     public QuestionAnswer answer(ChooseAWordContent question, List<String> answers) {
         return questionAnswerCreator.answer(question, answers);
     }
+
 
     @Override
     public ExerciseAnswer answer(ExerciseContent exerciseContent, List<ClosedQuestionAnswerInput> answers) {

@@ -1,6 +1,7 @@
 package org.tutor.materials.service.materialsource.question.fillaword;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.tutor.materials.model.dto.input.chooseaword.ClosedQuestionAnswerInput;
 import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.ExerciseAnswer;

@@ -1,0 +1,17 @@
+fragment wholeChooseAWordQuestionContent on ChooseAWordQuestionContent {
+    id, wordChoice, content
+}
+
+fragment wholeQuestionAnswer on QuestionAnswer {
+    id,
+    question {
+        id
+    },
+    answers
+}
+
+fragment wholeClosedQuestionEvaluation on ClosedQuestionEvaluation {
+    id, areAnswersCorrect, answer {
+        id
+    }
+}

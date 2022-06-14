@@ -27,7 +27,7 @@ class QuestionContentCreator {
 
     private FillAWordQuestion fromInput(FillAWordQuestionInput input) {
         var question = new FillAWordQuestion();
-        question.setContentParts(input.content());
+        question.setContent(input.content());
         question.setCorrectAnswers(input.correctAnswers());
         return question;
     }

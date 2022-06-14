@@ -1,15 +1,10 @@
 package org.tutor.materials.service.materialsource.question;
 
-
-import org.springframework.stereotype.Service;
 import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.ExerciseAnswer;
 import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.ExerciseEvaluation;
 
-@Service
-class ExerciseEvaluationCreator {
+public interface ClosedEvaluationCreator {
 
-    ExerciseEvaluation evaluate(ExerciseAnswer answer) {
-
-    }
+    ExerciseEvaluation evaluate(ExerciseAnswer answer);
 
 }

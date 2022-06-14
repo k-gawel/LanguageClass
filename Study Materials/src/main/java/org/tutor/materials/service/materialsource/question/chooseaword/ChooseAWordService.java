@@ -10,10 +10,11 @@ import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterp
 import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.question.QuestionAnswer;
 import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.question.evaluation.ClosedQuestionEvaluation;
 import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.question.questions.ChooseAWordContent;
+import org.tutor.materials.service.materialsource.question.ClosedQuestionService;
 
 import java.util.List;
 
-public interface ChooseAWordService {
+public interface ChooseAWordService extends ClosedQuestionService {
 
     ChooseAWordContent createQuestion(ChooseAWordQuestionInput input, List<String> commonChoice);
     ChooseAWordContent createQuestion(ChooseAWordQuestionInput input);
