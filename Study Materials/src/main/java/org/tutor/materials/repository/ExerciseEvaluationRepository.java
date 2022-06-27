@@ -1,18 +1,18 @@
 package org.tutor.materials.repository;
 
 import org.springframework.stereotype.Repository;
-import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.ExerciseAnswer;
-import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.ExerciseEvaluation;
+import org.tutor.materials.model.domain.ExerciseEvaluation;
+import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.ExerciseAnswerEntity;
+import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.ExerciseEvaluationEntity;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ExerciseEvaluationRepository extends BasicRepository<ExerciseEvaluation> {
+public interface ExerciseEvaluationRepository extends BasicRepository<ExerciseEvaluationEntity, ExerciseEvaluation> {
 
-    Optional<ExerciseEvaluation> findByAnswer(ExerciseAnswer answer);
+    Optional<ExerciseEvaluationEntity> findByAnswer(ExerciseAnswerEntity answer);
 
-    List<ExerciseEvaluation> findExerciseEvaluationsByAnswerIn(List<ExerciseAnswer> answers);
+    List<ExerciseEvaluationEntity> findExerciseEvaluationsByAnswerIn(List<ExerciseAnswerEntity> answers);
 
 }

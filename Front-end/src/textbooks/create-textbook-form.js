@@ -41,11 +41,11 @@ const CreateTextbookForm = ({addFunction}) => {
                              onChange={(e) =>{
                                  input = e.target.value;
                              }}
-                             placeholder="New textbook name"/>
+                             placeholder="New textbookEntity name"/>
             </FormGroup>
             <Button  onClick={() => createTextbook()}
                      type="primary">
-                Add textbook
+                Add textbookEntity
             </Button>
         </div>
     )

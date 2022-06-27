@@ -55,5 +55,5 @@ extend type Query {
 }
 
 extend type Query {
-    exerciseContent(id: Int): Exercise
+    exerciseContentEntity(id: Int): Exercise
 }

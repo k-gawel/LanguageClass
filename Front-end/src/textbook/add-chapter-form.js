@@ -45,11 +45,11 @@ function AddChapterForm({textbookId, addNewChapter}) {
                              onChange={(e) =>{
                                  input = e.target.value;
                              }}
-                             placeholder="New textbook name"/>
+                             placeholder="New textbookEntity name"/>
             </FormGroup>
             <Button  onClick={() => createChapter()}
                      type="primary">
-                Add textbook
+                Add textbookEntity
             </Button>
         </div>
     );

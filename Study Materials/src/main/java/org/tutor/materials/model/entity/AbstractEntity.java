@@ -3,8 +3,11 @@ package org.tutor.materials.model.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @MappedSuperclass
 @NoArgsConstructor
@@ -12,15 +15,20 @@ import javax.persistence.*;
 public abstract class AbstractEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Access(AccessType.PROPERTY)
+    UUID UUID;
+
     Long id;
 
     @Override
     public int hashCode() {
         Integer idHashCode = id.hashCode();
         Integer classNameHashCode = this.getClass().getTypeName().hashCode();
-
         return ((Integer)(idHashCode + classNameHashCode)).hashCode();
 
     }

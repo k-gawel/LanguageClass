@@ -1,10 +1,10 @@
 package org.tutor.materials.model.dto.output;
 
-import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.ExerciseAnswer;
-import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.ExerciseContent;
-import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.ExerciseEvaluation;
+import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.ExerciseAnswerEntity;
+import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.ExerciseContentEntity;
+import org.tutor.materials.model.entity.materialsource.textbook.chapter.chapterpart.exercise.ExerciseEvaluationEntity;
 
-public record ExerciseContentAnswerEvaluation(ExerciseContent content,
-                                              ExerciseAnswer answer,
-                                              ExerciseEvaluation evaluation) {
+public record ExerciseContentAnswerEvaluation(ExerciseContentEntity content,
+                                              ExerciseAnswerEntity answer,
+                                              ExerciseEvaluationEntity evaluation) {
 }

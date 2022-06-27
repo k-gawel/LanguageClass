@@ -2,23 +2,23 @@ package org.tutor.materials.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.tutor.materials.model.entity.users.AppUser;
-import org.tutor.materials.model.entity.users.Student;
+import org.tutor.materials.model.entity.users.AppUserEntity;
+import org.tutor.materials.model.entity.users.StudentEntity;
 
 import java.util.Collection;
 import java.util.List;
 
 public class MyUserPrincipal implements UserDetails {
 
-    private final AppUser user;
+    private final AppUserEntity user;
 
-    public MyUserPrincipal(AppUser user) {
+    public MyUserPrincipal(AppUserEntity user) {
         this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        var authority = user.getClass().equals(Student.class) ? new StudentAuthority() : new TeacherAuthority();
+        var authority = user.getClass().equals(StudentEntity.class) ? new StudentAuthority() : new TeacherAuthority();
         return List.of(authority);
     }
 
