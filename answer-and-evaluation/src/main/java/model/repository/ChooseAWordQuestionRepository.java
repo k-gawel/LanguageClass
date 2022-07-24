@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.Optional;
 
 @Repository
@@ -18,8 +17,8 @@ public class ChooseAWordQuestionRepository  {
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
     @Autowired
-    public ChooseAWordQuestionRepository(DataSource dataSource) {
-        this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+    public ChooseAWordQuestionRepository(NamedParameterJdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public Optional<ChooseAWordQuestion> findById(ID<ChooseAWordQuestion> id) {
@@ -39,8 +38,6 @@ public class ChooseAWordQuestionRepository  {
 
         return new ChooseAWordQuestion(
                 id,
-                Converter.FromDatabase.stringList(contentPartsString),
-                Converter.FromDatabase.nestedStringList(wordChoiceString),
                 Converter.FromDatabase.nestedStringList(correctAnswersString)
         );
     };

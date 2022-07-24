@@ -4,6 +4,7 @@ import model.domain.ChooseAWordQuestion;
 import model.domain.ID;
 import model.repository.utils.Converter;
 import org.junit.jupiter.api.Test;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
@@ -23,7 +24,7 @@ class ChooseAWordQuestionRepositoryTest {
     public ChooseAWordQuestionRepositoryTest() throws ClassNotFoundException, SQLException {
         dataSource = getDataSource();
         createDatas(dataSource);
-        repository = new ChooseAWordQuestionRepository(dataSource);
+        repository = new ChooseAWordQuestionRepository(new NamedParameterJdbcTemplate(dataSource));
     }
 
 
@@ -33,8 +34,6 @@ class ChooseAWordQuestionRepositoryTest {
         var result = repository.findById(id);
         assertTrue(result.isPresent());
         assertEquals(id, result.get().id());
-        assertEquals(toList("part1", null, "part2"), result.get().content());
-        assertEquals(List.of(List.of("word1", "word2")), result.get().wordsChoice());
         assertEquals(List.of(List.of("word1")), result.get().correctAnswers());
     }
 

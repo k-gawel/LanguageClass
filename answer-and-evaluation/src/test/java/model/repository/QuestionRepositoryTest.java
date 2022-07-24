@@ -2,6 +2,7 @@ package model.repository;
 
 import model.domain.ChooseAWordQuestion;
 import org.junit.jupiter.api.Test;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
@@ -17,7 +18,7 @@ class QuestionRepositoryTest {
     QuestionRepositoryTest() throws ClassNotFoundException, SQLException {
         var dataSource = getDataSource();
         createData(dataSource);
-        repository = new QuestionRepository(dataSource, chooseAWordRepository);
+        repository = new QuestionRepository(dataSource, new ChooseAWordQuestionRepository(new NamedParameterJdbcTemplate(dataSource)));
     }
 
     @Test
