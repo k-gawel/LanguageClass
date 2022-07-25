@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,13 +19,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ChooseAWordQuestionRepositoryTest {
 
-    private final DataSource dataSource;
-    private final ChooseAWordQuestionRepository repository;
+    private final QuestionRepository repository;
 
     public ChooseAWordQuestionRepositoryTest() throws ClassNotFoundException, SQLException {
-        dataSource = getDataSource();
+        DataSource dataSource = getDataSource();
         createDatas(dataSource);
-        repository = new ChooseAWordQuestionRepository(new NamedParameterJdbcTemplate(dataSource));
+        repository = new QuestionRepository(new NamedParameterJdbcTemplate(dataSource));
     }
 
 
@@ -85,9 +85,7 @@ class ChooseAWordQuestionRepositoryTest {
 
     private List<String> toList(String... element) {
         var result = new ArrayList<String>();
-        for (String s : element) {
-            result.add(s);
-        }
+        Collections.addAll(result, element);
         return result;
     }
 

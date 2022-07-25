@@ -2,8 +2,7 @@ package service;
 
 import model.domain.*;
 import model.input.QuestionEvaluationInput;
-import model.repository.ChooseAWordQuestionRepository;
-import model.repository.UserRepository;
+import model.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +13,10 @@ import java.util.List;
 public class ChooseAWordEvaluator {
 
     private final QuestionEvaluationCreator creator;
-    private final ChooseAWordQuestionRepository questionRepository;
+    private final QuestionRepository questionRepository;
 
     @Autowired
-    public ChooseAWordEvaluator(QuestionEvaluationCreator creator, ChooseAWordQuestionRepository questionRepository) {
+    public ChooseAWordEvaluator(QuestionEvaluationCreator creator, QuestionRepository questionRepository) {
         this.creator = creator;
         this.questionRepository = questionRepository;
     }

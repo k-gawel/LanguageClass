@@ -1,15 +1,13 @@
 package service;
 
-import model.database.tables.ExerciseEvaluation;
 import model.domain.*;
 import model.input.QuestionEvaluationInput;
-import model.repository.ChooseAWordQuestionRepository;
+import model.repository.QuestionRepository;
 import org.junit.jupiter.api.Test;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ChooseAWordEvaluatorTest {
 
@@ -30,11 +28,11 @@ class ChooseAWordEvaluatorTest {
 
     private final Map<ID<ChooseAWordQuestion>, ChooseAWordQuestion> dataSource = new HashMap<>();
 
-    private final ChooseAWordQuestionRepository repository = new ChooseAWordQuestionRepository(null) {
+    private final QuestionRepository repository = new QuestionRepository(null) {
 
         @Override
-        public Optional<ChooseAWordQuestion> findById(ID<ChooseAWordQuestion> id) {
-            return Optional.ofNullable(dataSource.get(id));
+        public <E extends Question> Optional<E> findById(ID<E> id) {
+            return (Optional<E>) Optional.ofNullable(dataSource.get(id));
         }
 
         private final ChooseAWordEvaluator evaluator = new ChooseAWordEvaluator(creator, repository);

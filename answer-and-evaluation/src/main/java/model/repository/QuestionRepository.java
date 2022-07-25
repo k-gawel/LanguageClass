@@ -17,19 +17,33 @@ import java.util.Optional;
 public class QuestionRepository {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
-    private final ChooseAWordQuestionRepository chooseAWordRepository;
+
+    private final Map<Class<? extends Question>, String> tableNames = Map.of(
+            ChooseAWordQuestion.class, "chooseaword_content"
+    );
 
     @Autowired
-    QuestionRepository(DataSource dataSource, ChooseAWordQuestionRepository chooseAWordRepository) {
-        jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-        this.chooseAWordRepository = chooseAWordRepository;
+    public QuestionRepository(NamedParameterJdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
-    public Optional<? extends Question> findById(ID<? extends Question> id) {
+
+    public <E extends Question> Optional<E> findById(ID<E> id) {
         if(id.type().equals(ChooseAWordQuestion.class))
-            return chooseAWordRepository.findById((ID<ChooseAWordQuestion>) id);
+            return (Optional<E>) findChooseAWord(id);
         else
             throw new IllegalArgumentException(id.toString());
+    }
+
+
+    private Optional<ChooseAWordQuestion> findChooseAWord(ID<? extends Question> id) {
+        var query = "SELECT id, content_parts, correct_answers, word_choice " +
+                "FROM chooseaword_content WHERE id = :id";
+        var parameters = new MapSqlParameterSource()
+                .addValue("id", id.id());
+        var mapper = QuestionMapper.ChooseAWord;
+        return jdbcTemplate.queryForStream(query, parameters, mapper).findFirst();
+
     }
 
     public Optional<Class<? extends Question>> findQuestionType(String stringId) {
@@ -45,13 +59,14 @@ public class QuestionRepository {
 
     public Optional<Long> findKey(ID<? extends Question> id) {
         var table = Optional
-                .ofNullable(tableName.get(id.type()))
+                .ofNullable(tableNames.get(id.type()))
                 .orElseThrow(() -> new IllegalArgumentException(id.toString()));
         var sql = "SELECT key FROM " + table + " WHERE id = :id'";
         var parameters = new MapSqlParameterSource().addValue("id", id.id());
 
         return jdbcTemplate.queryForStream(sql, parameters, (r, i) -> r.getLong(0)).findFirst();
     }
+
 
     private List<String> getResultFromDatabase(String stringId) {
         var query = "SELECT 'ChooseAWordQuestion' as className FROM chooseaword_content WHERE id = :id " +
@@ -61,6 +76,7 @@ public class QuestionRepository {
 
         return jdbcTemplate.queryForList(query, parameters, String.class);
     }
+
 
     private Class<? extends Question> getClass(String className) {
         final String packageName = "model.domain.";
@@ -73,8 +89,5 @@ public class QuestionRepository {
         }
     }
 
-    private static final Map<Class<? extends Question>, String> tableName = Map.of(
-            ChooseAWordQuestion.class, "chooseaword_content"
-    );
 
 }

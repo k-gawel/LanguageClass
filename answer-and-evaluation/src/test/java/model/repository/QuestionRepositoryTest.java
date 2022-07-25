@@ -18,7 +18,7 @@ class QuestionRepositoryTest {
     QuestionRepositoryTest() throws ClassNotFoundException, SQLException {
         var dataSource = getDataSource();
         createData(dataSource);
-        repository = new QuestionRepository(dataSource, new ChooseAWordQuestionRepository(new NamedParameterJdbcTemplate(dataSource)));
+        repository = new QuestionRepository(new NamedParameterJdbcTemplate(dataSource));
     }
 
     @Test

@@ -5,6 +5,7 @@ import model.domain.QuestionAnswer;
 import model.domain.QuestionEvaluation;
 import model.domain.Teacher;
 
+import java.io.Serializable;
 import java.util.List;
 
 public record QuestionEvaluationInput(

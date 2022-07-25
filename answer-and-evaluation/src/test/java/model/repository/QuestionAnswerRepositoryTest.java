@@ -47,9 +47,9 @@ class QuestionAnswerRepositoryTest {
                 );
 
         dataSource.getConnection().createStatement().executeUpdate(
-                    "CREATE TABLE app_user (identifier bigint, id varchar(250)); " +
-                        "CREATE TABLE fillaword_content (identifier bigint, id varchar(250)); " +
-                        "CREATE TABLE chooseaword_content (identifier bigint, id varchar(250)); " +
+                    "CREATE TABLE app_user (key bigint, id varchar(250)); " +
+                        "CREATE TABLE fillaword_content (key bigint, id varchar(250)); " +
+                        "CREATE TABLE chooseaword_content (key bigint, id varchar(250)); " +
                         "CREATE TABLE question_answer (id varchar(250), student bigint, question bigint, answers varchar(250)); "
         );
 
