@@ -5,7 +5,10 @@ import model.domain.ID;
 import model.domain.QuestionAnswer;
 import model.domain.Student;
 import model.repository.utils.Converter;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -14,19 +17,19 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class QuestionAnswerRepositoryTest {
+class QuestionAnswerRepositoryTest extends AbstractRepositoryTest{
 
-    private final QuestionAnswerRepository repository;
+    private QuestionAnswerRepository repository;
 
-
-    QuestionAnswerRepositoryTest() throws ClassNotFoundException, SQLException {
-        var datasource = Provider.getDataSource();
-        createData(datasource);
-        this.repository = new QuestionAnswerRepository(datasource, null);
+    @BeforeEach
+    public void init() throws SQLException, ClassNotFoundException {
+        super.init();
+        this.repository = new QuestionAnswerRepository(new NamedParameterJdbcTemplate(dataSource), null);
     }
 
     @Test
     public void whenCorrectId_thenReturn() {
+
         var id = new ID<>(QuestionAnswer.class, "answer_id");
 
         var result = repository.findById(id);
@@ -37,28 +40,33 @@ class QuestionAnswerRepositoryTest {
         assertEquals(List.of("answer1", "answer2"), result.get().answers());
     }
 
-    private void createData(DataSource dataSource) throws SQLException {
+    @Override
+    public void createData(DataSource dataSource) throws SQLException {
         dataSource.getConnection().createStatement()
                 .executeUpdate(
-                        "DROP TABLE IF EXISTS chooseaword_content; " +
-                            "DROP TABLE IF EXISTS app_user; " +
-                            "DROP TABLE IF EXISTS question_answer;" +
-                            "DROP TABLE IF EXISTS fillaword_content"
+                            "DELETE FROM textbook_chapter;" +
+                                    "DELETE FROM textbook;" +
+                                    "DELETE FROM question_answer;" +
+                                    "DELETE FROM app_user; " +
+                                    "DELETE FROM chooseaword_content; " +
+                                    "DELETE FROM fillaword_content"
                 );
-
-        dataSource.getConnection().createStatement().executeUpdate(
-                    "CREATE TABLE app_user (key bigint, id varchar(250)); " +
-                        "CREATE TABLE fillaword_content (key bigint, id varchar(250)); " +
-                        "CREATE TABLE chooseaword_content (key bigint, id varchar(250)); " +
-                        "CREATE TABLE question_answer (id varchar(250), student bigint, question bigint, answers varchar(250)); "
-        );
 
         var answers = Converter.ToDatabase.stringList(List.of("answer1", "answer2"));
 
         dataSource.getConnection().createStatement().executeUpdate(
-                "INSERT INTO app_user VALUES (1, 'student_id');" +
-                    "INSERT INTO chooseaword_content VALUES (1, 'question_id');" +
-                    "INSERT INTO question_answer VALUES ('answer_id', 1, 1, '" + answers + "');"
+                "INSERT INTO app_user (key, id, type) VALUES (1, 'student_id', 'STUDENT');" +
+                    "INSERT INTO chooseaword_content (key, id) VALUES (1, 'question_id');" +
+                    "INSERT INTO question_answer (id, student, question, answers) VALUES  ('answer_id', 1, 1, '" + answers + "');"
+        );
+    }
+
+    @AfterEach
+    public void clean() throws SQLException {
+        dataSource.getConnection().createStatement().executeUpdate(
+                "DELETE FROM question_answer;" +
+                    "DELETE FROM chooseaword_content;" +
+                    "DELETE FROM app_user;"
         );
     }
 

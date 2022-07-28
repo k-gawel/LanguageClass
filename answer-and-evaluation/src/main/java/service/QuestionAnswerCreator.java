@@ -37,7 +37,6 @@ public class QuestionAnswerCreator extends Creator {
         var answer = Converter.ToDatabase.stringList(input.answers());
         var id = getId(input.baseId());
 
-
         saveInDatabase(id, questionKey, studentKey, answer);
 
         return create(id, input.question(), input.author(), input.answers());

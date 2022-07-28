@@ -3,6 +3,7 @@ package model.repository;
 import model.domain.ChooseAWordQuestion;
 import model.domain.ID;
 import model.domain.Question;
+import org.jooq.meta.derby.sys.Sys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -42,9 +43,10 @@ public class QuestionRepository {
         var parameters = new MapSqlParameterSource()
                 .addValue("id", id.id());
         var mapper = QuestionMapper.ChooseAWord;
-        return jdbcTemplate.queryForStream(query, parameters, mapper).findFirst();
 
+        return jdbcTemplate.queryForStream(query, parameters, mapper).findFirst();
     }
+
 
     public Optional<Class<? extends Question>> findQuestionType(String stringId) {
         java.util.List<String> resultList = getResultFromDatabase(stringId);

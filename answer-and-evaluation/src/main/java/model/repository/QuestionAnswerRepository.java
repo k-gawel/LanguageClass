@@ -1,6 +1,7 @@
 package model.repository;
 
 import model.domain.*;
+import model.repository.criteria.QuestionAnswerCriteria;
 import model.repository.utils.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -9,9 +10,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.util.Date;
-import java.util.Map;
-import java.util.Optional;
+import javax.swing.text.html.Option;
+import java.util.*;
 
 @Repository
 public class QuestionAnswerRepository {
@@ -21,8 +21,8 @@ public class QuestionAnswerRepository {
     private final String tableName = "question_answer";
 
     @Autowired
-    public QuestionAnswerRepository(DataSource dataSource, QuestionRepository questionRepository) {
-        jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+    public QuestionAnswerRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, QuestionRepository questionRepository) {
+        jdbcTemplate = namedParameterJdbcTemplate;
         this.questionRepository = questionRepository;
     }
 
@@ -31,6 +31,43 @@ public class QuestionAnswerRepository {
         var sql = "SELECT key FROM " + tableName + " WHERE id = :id";
         var params = Map.of("id", answer.id());
         return jdbcTemplate.queryForStream(sql, params, (r, i) -> r.getLong("key")).findFirst();
+    }
+
+    public List<QuestionAnswer> findByCriteria(QuestionAnswerCriteria criteria) {
+        var queryBuilder = new StringBuilder("""
+                    SELECT a.id as id, null as created_at, a.answers as answers,
+                           s.id as student, q.id as question, q.type as type
+                    FROM question_answer AS a
+                    INNER JOIN(
+                        SELECT key, id, 'choose-a-word' as type FROM chooseaword_content
+                        UNION ALL
+                        SELECT key, id, 'fill-a-word' as type FROM fillaword_content
+                    ) AS q ON a.question = q.key AND (:questions IS NULL OR q.id IN :questions)
+                    INNER JOIN
+                    app_user s ON a.student = s.key AND (:students IS NULL OR s.id IN :students)
+                    WHERE (:ids IS NULL OR a.id IN :ids)
+                    AND (:startDate IS NULL OR a.created_at >= :startDate)
+                    AND (:endDate IS NULL OR a.created_at <= :startDate)\n
+                    """);
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("ids", criteria.ids());
+        params.put("students", criteria.students());
+        params.put("questions", criteria.questions());
+        params.put("startDate", criteria.startDate());
+        params.put("endDate", criteria.endDate());
+
+        Optional.ofNullable(criteria.offset()).ifPresent(o -> {
+            params.put("offset", o);
+            queryBuilder.append("OFFSET :offset ");
+        });
+
+        Optional.ofNullable(criteria.limit()).ifPresent(l -> {
+            params.put("limit", l);
+            queryBuilder.append("LIMIT :limit");
+        });
+
+        return jdbcTemplate.queryForStream(queryBuilder.toString(), params, mapper).toList();
     }
 
     public Optional<QuestionAnswer> findById(ID<QuestionAnswer> id) {
@@ -45,6 +82,7 @@ public class QuestionAnswerRepository {
                     ) AS q ON a.question = q.key
                     INNER JOIN
                     app_user s on a.student = s.key
+                    WHERE a.id = :id
                     """;
 
         var parameters = new MapSqlParameterSource().addValue("id", id.id());

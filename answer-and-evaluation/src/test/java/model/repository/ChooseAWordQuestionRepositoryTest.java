@@ -3,6 +3,10 @@ package model.repository;
 import model.domain.ChooseAWordQuestion;
 import model.domain.ID;
 import model.repository.utils.Converter;
+import org.jooq.meta.derby.sys.Sys;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -17,16 +21,23 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class ChooseAWordQuestionRepositoryTest {
+class ChooseAWordQuestionRepositoryTest extends AbstractRepositoryTest {
 
-    private final QuestionRepository repository;
+    private QuestionRepository repository;
 
-    public ChooseAWordQuestionRepositoryTest() throws ClassNotFoundException, SQLException {
-        DataSource dataSource = getDataSource();
-        createDatas(dataSource);
-        repository = new QuestionRepository(new NamedParameterJdbcTemplate(dataSource));
+    @BeforeEach
+    @Override
+    public void init() throws SQLException, ClassNotFoundException {
+        super.init();
+        this.repository = new QuestionRepository(new NamedParameterJdbcTemplate(dataSource));
     }
 
+    @AfterEach
+    public void clean() throws SQLException {
+        dataSource.getConnection().createStatement().executeUpdate(
+                "DELETE FROM chooseaword_content;"
+        );
+    }
 
     @Test
     public void whenCorrectId_thenReturnQuestion() {
@@ -37,23 +48,11 @@ class ChooseAWordQuestionRepositoryTest {
         assertEquals(List.of(List.of("word1")), result.get().correctAnswers());
     }
 
-    private DataSource getDataSource() throws ClassNotFoundException {
-        Class.forName("org.h2.Driver");
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:h2:~/test");
-        dataSource.setUsername("sa");
-        dataSource.setPassword("");
-        return dataSource;
-    }
 
-    public void createDatas(DataSource dataSource) throws SQLException {
+    public void createData(DataSource dataSource) throws SQLException {
         Statement statement;
-
         statement = dataSource.getConnection().createStatement();
-        statement.executeUpdate("DROP TABLE IF EXISTS chooseaword_content");
-        statement.executeUpdate("" +
-                "CREATE TABLE chooseaword_content (id varchar not null, content_parts varchar not null, correct_answers varchar not null, word_choice varchar not null )");
+        statement.executeUpdate("DELETE FROM chooseaword_content");
 
         var contentPart1 = Converter.ToDatabase.stringList(toList("part1", null, "part2"));
         var wordChoice1 = Converter.ToDatabase.nestedStringList(List.of(List.of("word1", "word2")));
@@ -62,7 +61,6 @@ class ChooseAWordQuestionRepositoryTest {
         var contentPart2 = Converter.ToDatabase.stringList(toList(null, "part1", "part2", null));
         var wordChoice2 = Converter.ToDatabase.nestedStringList(List.of(List.of("word1", "word2"), List.of("word3", "word4")));
         var correctAnswers2 = Converter.ToDatabase.nestedStringList(List.of(List.of("word1"), List.of("word4")));
-
 
         statement.executeUpdate(
                 "INSERT INTO chooseaword_content (id, content_parts, correct_answers, word_choice) " +
@@ -81,6 +79,7 @@ class ChooseAWordQuestionRepositoryTest {
         assertEquals(3, i);
         result.close();
         statement.close();
+        dataSource.getConnection().close();
     }
 
     private List<String> toList(String... element) {

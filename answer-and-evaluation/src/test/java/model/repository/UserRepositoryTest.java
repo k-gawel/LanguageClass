@@ -3,11 +3,15 @@ package model.repository;
 import model.domain.ID;
 import model.domain.Student;
 import model.domain.Teacher;
+import org.jooq.meta.derby.sys.Sys;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
+import javax.xml.crypto.Data;
 
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,14 +21,20 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class UserRepositoryTest {
 
-    private final DataSource dataSource;
-    private final UserRepository repository;
+    private UserRepository repository;
+    private DataSource dataSource;
 
-
-    UserRepositoryTest() throws ClassNotFoundException, SQLException {
-        dataSource = getDataSource();
+    @BeforeEach
+    public void init() throws SQLException, ClassNotFoundException {
+        var provided = Provider.getDataSource();
+        this.dataSource = provided;
         createDatas(dataSource);
         this.repository = new UserRepository(new NamedParameterJdbcTemplate(dataSource));
+    }
+
+    @AfterEach
+    public void clean() throws SQLException {
+        cleanData(dataSource);
     }
 
     @Test
@@ -73,27 +83,14 @@ class UserRepositoryTest {
         assertTrue(result.isEmpty());
     }
 
-
-    private DataSource getDataSource() throws ClassNotFoundException {
-        Class.forName("org.h2.Driver");
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:h2:~/test");
-        dataSource.setUsername("sa");
-        dataSource.setPassword("");
-        return dataSource;
-    }
-
     public void createDatas(DataSource dataSource) throws  SQLException {
         Statement statement;
 
         statement = dataSource.getConnection().createStatement();
-        statement.executeUpdate("DROP TABLE IF EXISTS app_user");
-        statement.executeUpdate("" +
-                "CREATE TABLE app_user (id varchar not null, name varchar not null, type varchar not null)");
+        statement.executeUpdate("DELETE FROM app_user");
 
         statement.executeUpdate(
-                "INSERT INTO app_user VALUES " +
+                "INSERT INTO app_user (id, name, type) VALUES " +
                         "('user_id_1', 'user_name_1', 'TEACHER')," +
                         "('user_id_2', 'user_name_2', 'TEACHER')," +
                         "('user_id_3', 'user_name_3', 'STUDENT')," +
@@ -110,6 +107,12 @@ class UserRepositoryTest {
         assertEquals(5, i);
         result.close();
         statement.close();
+    }
+
+    private void cleanData(DataSource ds) throws SQLException {
+        ds.getConnection().createStatement().executeUpdate(
+                "DELETE FROM app_user"
+        );
     }
 
 }

@@ -1,6 +1,8 @@
 package model.repository;
 
 import model.domain.ChooseAWordQuestion;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -13,12 +15,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class QuestionRepositoryTest {
 
-    private final QuestionRepository repository;
+    private QuestionRepository repository;
+    private DataSource dataSource;
 
-    QuestionRepositoryTest() throws ClassNotFoundException, SQLException {
-        var dataSource = getDataSource();
+    @BeforeEach
+    public void init() throws SQLException, ClassNotFoundException {
+        this.dataSource = Provider.getDataSource();
         createData(dataSource);
-        repository = new QuestionRepository(new NamedParameterJdbcTemplate(dataSource));
+        this.repository = new QuestionRepository(new NamedParameterJdbcTemplate(dataSource));
+    }
+
+    @AfterEach
+    public void clean() throws SQLException {
+        cleanData(dataSource);
     }
 
     @Test
@@ -31,27 +40,20 @@ class QuestionRepositoryTest {
 
     private void createData(DataSource dataSource) throws SQLException {
         dataSource.getConnection().createStatement().executeUpdate(
-                "DROP TABLE IF EXISTS chooseaword_content; DROP TABLE IF EXISTS fillaword_content"
+                "DELETE FROM chooseaword_content; DELETE FROM fillaword_content"
         );
         dataSource.getConnection().createStatement().executeUpdate(
-                "CREATE TABLE chooseaword_content (id varchar(250))");
+                "INSERT INTO chooseaword_content (id) VALUES ('id1'), ('id2')");
         dataSource.getConnection().createStatement().executeUpdate(
-                "INSERT INTO chooseaword_content VALUES ('id1'), ('id2')");
-        dataSource.getConnection().createStatement().executeUpdate(
-                "CREATE TABLE fillaword_content (id varchar(250))");
-        dataSource.getConnection().createStatement().executeUpdate(
-                "INSERT INTO fillaword_content VALUES ('id3'), ('id4')");
+                "INSERT INTO fillaword_content (id) VALUES ('id3'), ('id4')");
     }
 
 
-    private DataSource getDataSource() throws ClassNotFoundException {
-        Class.forName("org.h2.Driver");
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:h2:~/test");
-        dataSource.setUsername("sa");
-        dataSource.setPassword("");
-        return dataSource;
+    private void cleanData(DataSource ds) throws SQLException {
+        ds.getConnection().createStatement().executeUpdate(
+                "DELETE FROM chooseaword_content; DELETE FROM fillaword_content;"
+        );
     }
+
 
 }
