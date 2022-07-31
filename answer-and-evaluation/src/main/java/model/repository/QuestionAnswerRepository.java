@@ -1,6 +1,10 @@
 package model.repository;
 
 import model.domain.*;
+import model.domain.answer.QuestionAnswer;
+import model.domain.content.ChooseAWordQuestion;
+import model.domain.content.Question;
+import model.domain.user.Student;
 import model.repository.criteria.QuestionAnswerCriteria;
 import model.repository.utils.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +13,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
-import javax.swing.text.html.Option;
 import java.util.*;
 
 @Repository
@@ -47,7 +49,7 @@ public class QuestionAnswerRepository {
                     app_user s ON a.student = s.key AND (:students IS NULL OR s.id IN :students)
                     WHERE (:ids IS NULL OR a.id IN :ids)
                     AND (:startDate IS NULL OR a.created_at >= :startDate)
-                    AND (:endDate IS NULL OR a.created_at <= :startDate)\n
+                    AND (:endDate IS NULL OR a.created_at <= :endDate)\n
                     """);
 
         Map<String, Object> params = new HashMap<>();

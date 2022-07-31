@@ -1,11 +1,10 @@
 package model.input;
 
 import model.domain.ID;
-import model.domain.QuestionAnswer;
-import model.domain.QuestionEvaluation;
-import model.domain.Teacher;
+import model.domain.answer.QuestionAnswer;
+import model.domain.evaluation.QuestionEvaluation;
+import model.domain.user.Teacher;
 
-import java.io.Serializable;
 import java.util.List;
 
 public record QuestionEvaluationInput(

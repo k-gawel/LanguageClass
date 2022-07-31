@@ -1,8 +1,7 @@
 package model.repository;
 
-import model.domain.ChooseAWordQuestion;
+import model.domain.content.ChooseAWordQuestion;
 import model.domain.ID;
-import model.domain.Question;
 import model.repository.utils.Converter;
 import org.springframework.jdbc.core.RowMapper;
 

@@ -1,17 +1,14 @@
 package model.repository;
 
 import model.domain.ID;
-import model.domain.Student;
-import model.domain.Teacher;
-import org.jooq.meta.derby.sys.Sys;
+import model.domain.user.Student;
+import model.domain.user.Teacher;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
-import javax.xml.crypto.Data;
 
 import java.sql.SQLException;
 import java.sql.Statement;

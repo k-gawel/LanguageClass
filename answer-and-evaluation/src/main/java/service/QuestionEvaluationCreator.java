@@ -1,9 +1,9 @@
 package service;
 
 import model.domain.ID;
-import model.domain.QuestionAnswer;
-import model.domain.QuestionEvaluation;
-import model.domain.Teacher;
+import model.domain.answer.QuestionAnswer;
+import model.domain.evaluation.QuestionEvaluation;
+import model.domain.user.Teacher;
 import model.input.QuestionEvaluationInput;
 import model.repository.QuestionAnswerRepository;
 import model.repository.UserRepository;

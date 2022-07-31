@@ -1,6 +1,12 @@
 package service;
 
 import model.domain.*;
+import model.domain.answer.QuestionAnswer;
+import model.domain.content.ChooseAWordQuestion;
+import model.domain.content.Question;
+import model.domain.evaluation.QuestionEvaluation;
+import model.domain.user.Student;
+import model.domain.user.Teacher;
 import model.input.QuestionEvaluationInput;
 import model.repository.QuestionRepository;
 import org.junit.jupiter.api.Test;

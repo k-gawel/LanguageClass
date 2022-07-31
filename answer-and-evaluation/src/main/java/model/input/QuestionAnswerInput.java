@@ -1,9 +1,9 @@
 package model.input;
 
 import model.domain.ID;
-import model.domain.Question;
-import model.domain.QuestionAnswer;
-import model.domain.Student;
+import model.domain.content.Question;
+import model.domain.answer.QuestionAnswer;
+import model.domain.user.Student;
 
 import java.util.List;
 

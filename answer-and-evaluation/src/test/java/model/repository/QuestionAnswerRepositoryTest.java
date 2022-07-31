@@ -1,9 +1,9 @@
 package model.repository;
 
-import model.domain.ChooseAWordQuestion;
+import model.domain.content.ChooseAWordQuestion;
 import model.domain.ID;
-import model.domain.QuestionAnswer;
-import model.domain.Student;
+import model.domain.answer.QuestionAnswer;
+import model.domain.user.Student;
 import model.repository.utils.Converter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

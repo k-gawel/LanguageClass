@@ -1,6 +1,10 @@
 package service;
 
 import model.domain.*;
+import model.domain.answer.QuestionAnswer;
+import model.domain.content.ChooseAWordQuestion;
+import model.domain.evaluation.QuestionEvaluation;
+import model.domain.user.Teacher;
 import model.input.QuestionEvaluationInput;
 import model.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;

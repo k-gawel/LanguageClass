@@ -1,10 +1,8 @@
 package event.events;
 
-import config.App;
-import model.domain.AppUser;
+import model.domain.user.AppUser;
 import model.domain.ID;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

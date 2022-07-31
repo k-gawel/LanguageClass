@@ -1,6 +1,10 @@
 package model.repository;
 
 import model.domain.*;
+import model.domain.answer.ExerciseAnswer;
+import model.domain.answer.QuestionAnswer;
+import model.domain.content.Exercise;
+import model.domain.user.Student;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;

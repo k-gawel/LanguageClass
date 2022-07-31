@@ -1,9 +1,9 @@
 package model.repository;
 
-import model.domain.AppUser;
+import model.domain.user.AppUser;
 import model.domain.ID;
-import model.domain.Student;
-import model.domain.Teacher;
+import model.domain.user.Student;
+import model.domain.user.Teacher;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,9 +11,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 @Repository

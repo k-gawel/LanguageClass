@@ -1,8 +1,8 @@
 package model.input.parser;
 
 import model.domain.ID;
-import model.domain.Question;
-import model.domain.Student;
+import model.domain.content.Question;
+import model.domain.user.Student;
 import model.input.QuestionAnswerInput;
 import model.repository.QuestionRepository;
 import model.repository.UserRepository;

@@ -1,9 +1,9 @@
 package model.repository;
 
 import model.domain.ID;
-import model.domain.QuestionAnswer;
-import model.domain.QuestionEvaluation;
-import model.domain.Teacher;
+import model.domain.answer.QuestionAnswer;
+import model.domain.evaluation.QuestionEvaluation;
+import model.domain.user.Teacher;
 import model.repository.utils.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;

@@ -1,15 +1,13 @@
 package model.repository;
 
-import model.domain.ChooseAWordQuestion;
+import model.domain.content.ChooseAWordQuestion;
 import model.domain.ID;
-import model.domain.Question;
-import org.jooq.meta.derby.sys.Sys;
+import model.domain.content.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
