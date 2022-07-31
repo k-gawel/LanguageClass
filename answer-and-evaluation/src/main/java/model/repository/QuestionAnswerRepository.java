@@ -13,19 +13,18 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 @Repository
 public class QuestionAnswerRepository {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
-    private final QuestionRepository questionRepository;
     private final String tableName = "question_answer";
 
     @Autowired
     public QuestionAnswerRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, QuestionRepository questionRepository) {
         jdbcTemplate = namedParameterJdbcTemplate;
-        this.questionRepository = questionRepository;
     }
 
 
@@ -37,7 +36,7 @@ public class QuestionAnswerRepository {
 
     public List<QuestionAnswer> findByCriteria(QuestionAnswerCriteria criteria) {
         var queryBuilder = new StringBuilder("""
-                    SELECT a.id as id, null as created_at, a.answers as answers,
+                    SELECT a.id as id, null as createdAt, a.answers as answers,
                            s.id as student, q.id as question, q.type as type
                     FROM question_answer AS a
                     INNER JOIN(
@@ -99,14 +98,14 @@ public class QuestionAnswerRepository {
         var questionIdString = r.getString("question");
         var studentIdString = r.getString("student");
         var answersString = r.getString("answers");
-        var createdAt = r.getDate("created_at");
+        var createdAt = r.getTimestamp("created_at");
 
         return map(idString, questionIdString, questionTypeString, studentIdString, answersString, createdAt);
     };
 
     private static QuestionAnswer map(
             String idString, String questionIdString, String questionTypeString,
-            String studentIdString, String answersString, Date createdAt) {
+            String studentIdString, String answersString, Timestamp createdAt) {
 
         var id = new ID<>(QuestionAnswer.class, idString);
         var questionType = questionTypeFromString(questionTypeString);

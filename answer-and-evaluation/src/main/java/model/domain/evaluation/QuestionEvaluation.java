@@ -2,10 +2,10 @@ package model.domain.evaluation;
 
 import model.domain.Domain;
 import model.domain.ID;
-import model.domain.user.Teacher;
 import model.domain.answer.QuestionAnswer;
+import model.domain.user.Teacher;
 
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public record QuestionEvaluation(
@@ -14,6 +14,6 @@ public record QuestionEvaluation(
         ID<Teacher> author,
         List<String> comments,
         int score,
-        Date createdAt
+        Timestamp createdAt
 ) implements Domain {
 }

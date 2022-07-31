@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class QuestionAnswerCreator extends Creator {
                 question,
                 student,
                 answers,
-                new Date()
+                new Timestamp(new Date().getTime())
         );
     }
 

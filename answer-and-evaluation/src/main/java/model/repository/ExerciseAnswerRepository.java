@@ -27,7 +27,8 @@ public class ExerciseAnswerRepository {
     }
 
     public List<ExerciseAnswer> findByIds(Collection<ID<ExerciseAnswer>> ids) {
-        var query = "SELECT a.id as id, au.id as studentId, ec.id AS exerciseId, eaa.question_answer as questionAnswerId " +
+        var query = "SELECT a.id as id, au.id as studentId, a.created_at as createdAt," +
+                    "ec.id AS exerciseId, eaa.question_answer as questionAnswerId " +
                     "FROM exercise_answer a  " +
                     "JOIN app_user au ON a.student = au.key " +
                     "JOIN exercise_content ec on a.exercise = ec.key " +
@@ -61,7 +62,8 @@ public class ExerciseAnswerRepository {
                 new ID<>(ExerciseAnswer.class, resultSet.getString("id")),
                 new ID<>(Exercise.class, resultSet.getString("exerciseId")),
                 new ID<>(Student.class, resultSet.getString("studentId")),
-                initialAnswers
+                initialAnswers,
+                resultSet.getTimestamp("createdAt")
         );
     }
 

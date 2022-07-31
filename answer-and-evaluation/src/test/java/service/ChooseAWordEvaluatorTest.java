@@ -11,6 +11,7 @@ import model.input.QuestionEvaluationInput;
 import model.repository.QuestionRepository;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,7 +28,7 @@ class ChooseAWordEvaluatorTest {
                     input.author(),
                     input.comments(),
                     input.score(),
-                    new Date()
+                    new Timestamp(new Date().getTime())
             );
         }
     };
@@ -60,7 +61,7 @@ class ChooseAWordEvaluatorTest {
                 new ID<>(ChooseAWordQuestion.class, "QUESTION_ID"),
                 new ID<>(Student.class, "STUDENT_ID"),
                 List.of("A", "D"),
-                new Date()
+                new Timestamp(new Date().getTime())
         );
 
         var evaluation = evaluator.evaluate(answer);
@@ -71,7 +72,7 @@ class ChooseAWordEvaluatorTest {
                 new ID<>(Teacher.class, "ADMIN"),
                 List.of("true", "false"),
                 50,
-                new Date()
+                new Timestamp(new Date().getTime())
         );
 
         assertEquals(expected.answer(), evaluation.answer());

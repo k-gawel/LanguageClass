@@ -5,7 +5,8 @@ import model.domain.ID;
 import model.domain.content.Question;
 import model.domain.user.Student;
 
-import java.util.Date;
+import java.sql.Timestamp;
+
 import java.util.List;
 
 public record QuestionAnswer(
@@ -13,6 +14,6 @@ public record QuestionAnswer(
         ID<? extends Question> question,
         ID<Student> student,
         List<String> answers,
-        Date createdAt
+        Timestamp createdAt
 ) implements Domain {
 }
