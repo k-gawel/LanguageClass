@@ -1,4 +1,6 @@
-package model.domain;
+package model.domain.content;
+
+import model.domain.ID;
 
 import java.util.List;
 

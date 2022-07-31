@@ -1,4 +1,7 @@
-package model.domain;
+package model.domain.content;
+
+import model.domain.Domain;
+import model.domain.ID;
 
 public record Exercise(
         ID<Exercise> id,

@@ -1,4 +1,9 @@
-package model.domain;
+package model.domain.answer;
+
+import model.domain.Domain;
+import model.domain.content.Exercise;
+import model.domain.ID;
+import model.domain.user.Student;
 
 import java.util.List;
 
@@ -7,5 +12,5 @@ public record ExerciseAnswer(
         ID<Exercise> exercise,
         ID<Student> author,
         List<ID<QuestionAnswer>> answers
-) implements Domain{
+) implements Domain {
 }

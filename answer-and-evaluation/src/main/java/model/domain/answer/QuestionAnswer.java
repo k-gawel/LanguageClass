@@ -1,4 +1,9 @@
-package model.domain;
+package model.domain.answer;
+
+import model.domain.Domain;
+import model.domain.ID;
+import model.domain.content.Question;
+import model.domain.user.Student;
 
 import java.util.Date;
 import java.util.List;
