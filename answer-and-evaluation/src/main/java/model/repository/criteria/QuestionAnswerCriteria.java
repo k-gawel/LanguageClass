@@ -12,10 +12,6 @@ public record QuestionAnswerCriteria(
         Date endDate,
         Integer limit,
         Integer offset
-)  {
-
-    public Map<String, Object> toMap() {
-        return null;
-    }
+) implements Criteria {
 
 }
