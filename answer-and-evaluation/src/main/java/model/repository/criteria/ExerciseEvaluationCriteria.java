@@ -1,5 +1,6 @@
 package model.repository.criteria;
 
+import lombok.Builder;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
@@ -18,4 +19,9 @@ public record ExerciseEvaluationCriteria(
         Integer limit,
         Integer offset
 ) implements Criteria {
+
+    @Builder
+    public ExerciseEvaluationCriteria {
+    }
+
 }
