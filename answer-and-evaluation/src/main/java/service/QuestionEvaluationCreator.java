@@ -24,8 +24,8 @@ public class QuestionEvaluationCreator extends Creator{
     private final UserRepository userRepository;
 
     @Autowired
-    protected QuestionEvaluationCreator(String tableName, NamedParameterJdbcTemplate jdbcTemplate, QuestionAnswerRepository answerRepository, UserRepository userRepository) {
-        super(tableName, jdbcTemplate);
+    protected QuestionEvaluationCreator(NamedParameterJdbcTemplate jdbcTemplate, QuestionAnswerRepository answerRepository, UserRepository userRepository) {
+        super("question_evaluation", jdbcTemplate);
         this.answerRepository = answerRepository;
         this.userRepository = userRepository;
     }

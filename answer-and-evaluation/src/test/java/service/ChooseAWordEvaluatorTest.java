@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ChooseAWordEvaluatorTest {
 
     private final QuestionEvaluationCreator creator =
-            new QuestionEvaluationCreator(null, null, null, null) {
+            new QuestionEvaluationCreator(null, null, null) {
         @Override
         public QuestionEvaluation create(QuestionEvaluationInput input) {
             return new QuestionEvaluation(
