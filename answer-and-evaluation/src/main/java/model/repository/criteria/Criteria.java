@@ -17,9 +17,9 @@ public interface Criteria extends SqlParameterSource {
 
     @Override
     default Object getValue(String paramName) throws IllegalArgumentException {
-        return Arrays.stream(this.getClass().getDeclaredMethods())
+        return Arrays.stream(this.getClass().getMethods())
                 .filter(m -> m.getName().equals(paramName) && m.getParameterCount() == 0)
-                .findFirst()
+                .findAny()
                 .map(this::invokeMethod)
                 .orElseThrow(() -> new IllegalArgumentException(paramName));
     }

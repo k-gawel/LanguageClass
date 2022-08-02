@@ -1,7 +1,7 @@
 package model.repository;
 
-import model.domain.content.ChooseAWordQuestion;
 import model.domain.ID;
+import model.domain.content.ChooseAWordQuestion;
 import model.domain.content.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -79,13 +79,13 @@ public class QuestionRepository {
 
 
     private Class<? extends Question> getClass(String className) {
-        final String packageName = "model.domain.";
+        final String packageName = "model.domain.content.";
         var fullName = packageName + className;
 
         try {
             return (Class<? extends Question>) Class.forName(fullName);
         } catch (ClassCastException | ClassNotFoundException e) {
-            throw new IllegalStateException("Cannot found question type. ", e);
+            throw new IllegalStateException("Cannot find question type " + className, e);
         }
     }
 

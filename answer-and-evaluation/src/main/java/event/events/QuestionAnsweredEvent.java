@@ -1,8 +1,8 @@
 package event.events;
 
-import model.domain.AppUser;
+import model.domain.user.AppUser;
 import model.domain.ID;
-import model.domain.QuestionAnswer;
+import model.domain.answer.QuestionAnswer;
 import model.input.QuestionAnswerInput;
 
 import java.util.List;
