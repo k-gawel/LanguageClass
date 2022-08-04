@@ -1,5 +1,6 @@
 package model.domain.answer;
 
+import lombok.Builder;
 import model.domain.Domain;
 import model.domain.content.Exercise;
 import model.domain.ID;

@@ -3,12 +3,14 @@ package service;
 import org.jooq.meta.derby.sys.Sys;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
-abstract class Creator {
+@Service
+class Creator {
 
     private final String tableName;
     protected final NamedParameterJdbcTemplate jdbcTemplate;
