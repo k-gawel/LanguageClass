@@ -1,9 +1,7 @@
 package service;
 
 import model.domain.ID;
-import model.domain.answer.QuestionAnswer;
 import model.domain.evaluation.QuestionEvaluation;
-import model.domain.user.Teacher;
 import model.input.QuestionEvaluationInput;
 import model.repository.QuestionAnswerRepository;
 import model.repository.UserRepository;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -31,30 +28,37 @@ public class QuestionEvaluationCreator extends Creator{
     }
 
     public QuestionEvaluation create(QuestionEvaluationInput input) {
-        var answerKey = answerRepository.findKey(input.answer()).orElseThrow();
-        var authorKey = userRepository.findKey(input.author()).orElseThrow();
-        var id = new ID<>(QuestionEvaluation.class, getId(input.baseId()));
-        var comments = Converter.ToDatabase.stringList(input.comments());
+        var idString = getId(getBaseId(input));
+        var id = new ID<>(QuestionEvaluation.class, idString);
 
-        saveInDatabase(id.id(), input.score(), answerKey, authorKey, comments);
-
-        return create(id, input.author(), input.answer(), input.comments(), input.score());
+        return new QuestionEvaluation(id,
+                input.answer(),
+                input.author(),
+                input.comments(),
+                input.score(),
+                new Timestamp(new Date().getTime()));
     }
 
-    private QuestionEvaluation create(ID<QuestionEvaluation> id, ID<Teacher> author, ID<QuestionAnswer> answer, List<String> comments, int score) {
-        return new QuestionEvaluation(
-                id, answer, author, comments, score, new Timestamp(new Date().getTime())
-        );
-    }
+    private void save(QuestionEvaluation evaluation) {
+        var answerKey = answerRepository.findKey(evaluation.answer()).orElseThrow();
+        var authorKey = userRepository.findKey(evaluation.author()).orElseThrow();
+        var comments = Converter.ToDatabase.stringList(evaluation.comments());
 
-
-    private void saveInDatabase(String id, int rating, long answerKey, long teacherKey, String comments) {
         var sql = "INSERT INTO question_evaluation (id, rating, answer, comments, teacher) " +
-                  "VALUES (:id, :rating, :answer, :comments, :teacher)";
+                                           "VALUES (:id, :rating, :answer, :comments, :teacher)";
+
         var params = Map.of(
-                "id", id, "rating", rating, "answer", answerKey, "teacher", teacherKey, "comments", comments
+                "id", evaluation.id().id(),
+                "rating", evaluation.score(),
+                "answer", answerKey,
+                "teacher", authorKey,
+                "comments", comments
         );
         jdbcTemplate.update(sql, params);
+    }
+
+    private String getBaseId(QuestionEvaluationInput input) {
+        return "evaluation_for_" + input.answer().id() + "_by_" + input.author().id();
     }
 
 
