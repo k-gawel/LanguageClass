@@ -1,13 +1,8 @@
 package model.repository;
 
-import io.vavr.Tuple2;
-import org.jooq.meta.derby.sys.Sys;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
-import javax.xml.crypto.Data;
-import java.sql.SQLException;
-import java.util.UUID;
 
 public final class Provider {
 
@@ -15,8 +10,12 @@ public final class Provider {
 
 
 
-    public static DataSource getDataSource() throws ClassNotFoundException, SQLException {
-        Class.forName("org.h2.Driver");
+    public static DataSource getDataSource() {
+        try {
+            Class.forName("org.h2.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException(e);
+        }
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl(getUrl("language_study_material"));
@@ -28,7 +27,5 @@ public final class Provider {
     private static String getUrl(String dbName) {
         return "jdbc:postgresql://localhost:5432/" + dbName;
     }
-
-
 
 }
