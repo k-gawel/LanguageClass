@@ -2,19 +2,16 @@ package service;
 
 import model.domain.ID;
 import model.domain.answer.ExerciseAnswer;
-import model.domain.content.Exercise;
 import model.domain.evaluation.ExerciseEvaluation;
 import model.domain.user.Teacher;
 import model.input.ExerciseEvaluationInput;
 import model.repository.ExerciseEvaluationRepository;
 import model.repository.Provider;
-import org.jooq.meta.derby.sys.Sys;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import javax.annotation.processing.SupportedSourceVersion;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -28,8 +25,10 @@ class ExerciseEvaluationCreatorTest {
     private final ExerciseEvaluationRepository repository;
     private final ExerciseEvaluationCreator creator;
     private final DataSource dataSource;
+    private final QuestionEvaluationCreator questionEvaluationCreator;
 
-    ExerciseEvaluationCreatorTest() throws SQLException, ClassNotFoundException {
+    ExerciseEvaluationCreatorTest(QuestionEvaluationCreator questionEvaluationCreator) {
+        this.questionEvaluationCreator = questionEvaluationCreator;
         this.dataSource = Provider.getDataSource();
         var template = new NamedParameterJdbcTemplate(dataSource);
         this.repository = new ExerciseEvaluationRepository(template);
@@ -41,6 +40,7 @@ class ExerciseEvaluationCreatorTest {
         var input = new ExerciseEvaluationInput(
                 new ID<>(ExerciseAnswer.class, "answer"),
                 new ID<>(Teacher.class, "teacher"),
+                Collections.emptyList(),
                 "comment",
                 130
         );

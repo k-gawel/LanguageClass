@@ -1,4 +1,4 @@
-package service;
+package service.evaluator;
 
 import model.domain.*;
 import model.domain.answer.QuestionAnswer;
@@ -9,6 +9,7 @@ import model.input.QuestionEvaluationInput;
 import model.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import service.QuestionEvaluationCreator;
 
 import java.util.ArrayList;
 import java.util.List;

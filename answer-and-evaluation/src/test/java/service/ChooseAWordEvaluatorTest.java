@@ -10,6 +10,7 @@ import model.domain.user.Teacher;
 import model.input.QuestionEvaluationInput;
 import model.repository.QuestionRepository;
 import org.junit.jupiter.api.Test;
+import service.evaluator.ChooseAWordEvaluator;
 
 import java.sql.Timestamp;
 import java.util.*;
