@@ -1,4 +1,4 @@
-package model.repository;
+package model.repository.content;
 
 import model.domain.ID;
 import model.domain.content.ChooseAWordQuestion;

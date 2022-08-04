@@ -6,8 +6,8 @@ import model.domain.content.ChooseAWordQuestion;
 import model.domain.user.Student;
 import model.repository.Provider;
 import model.repository.QuestionAnswerRepository;
-import model.repository.QuestionRepository;
-import model.repository.UserRepository;
+import model.repository.content.QuestionRepository;
+import model.repository.content.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,6 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Clock;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -8,16 +8,13 @@ import model.domain.evaluation.QuestionEvaluation;
 import model.domain.user.Student;
 import model.domain.user.Teacher;
 import model.input.QuestionEvaluationInput;
-import model.repository.QuestionRepository;
+import model.repository.content.QuestionRepository;
 import org.junit.jupiter.api.Test;
 import service.evaluator.ChooseAWordEvaluator;
 import utils.DummyClock;
 
 import java.sql.Timestamp;
 import java.time.Clock;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.temporal.TemporalAccessor;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

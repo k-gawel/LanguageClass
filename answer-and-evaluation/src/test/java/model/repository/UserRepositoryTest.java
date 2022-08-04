@@ -3,6 +3,7 @@ package model.repository;
 import model.domain.ID;
 import model.domain.user.Student;
 import model.domain.user.Teacher;
+import model.repository.content.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

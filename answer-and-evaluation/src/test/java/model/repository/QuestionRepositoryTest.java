@@ -1,6 +1,7 @@
 package model.repository;
 
 import model.domain.content.ChooseAWordQuestion;
+import model.repository.content.QuestionRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

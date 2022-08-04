@@ -4,6 +4,7 @@ import model.domain.ID;
 import model.domain.content.ChooseAWordQuestion;
 import model.domain.content.Exercise;
 import model.domain.content.QuestionType;
+import model.repository.content.ExerciseRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

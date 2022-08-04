@@ -2,6 +2,7 @@ package model.repository;
 
 import model.domain.content.ChooseAWordQuestion;
 import model.domain.ID;
+import model.repository.content.QuestionRepository;
 import model.repository.utils.Converter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
