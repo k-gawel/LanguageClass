@@ -58,13 +58,19 @@ public class QuestionRepository {
     }
 
     public Optional<Long> findKey(ID<? extends Question> id) {
-        var table = Optional
-                .ofNullable(tableNames.get(id.type()))
-                .orElseThrow(() -> new IllegalArgumentException(id.toString()));
-        var sql = "SELECT key FROM " + table + " WHERE id = :id'";
+        var sql = """
+                  SELECT key FROM
+                  (
+                    SELECT key, id FROM chooseaword_content
+                    UNION ALL
+                    SELECT key, id FROM fillaword_content
+                  ) as kiki
+                  WHERE kiki.id = :id
+                  """;
+
         var parameters = new MapSqlParameterSource().addValue("id", id.id());
 
-        return jdbcTemplate.queryForStream(sql, parameters, (r, i) -> r.getLong(0)).findFirst();
+        return jdbcTemplate.queryForStream(sql, parameters, (r, i) -> r.getLong(1)).findFirst();
     }
 
 
