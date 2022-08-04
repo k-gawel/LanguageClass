@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.Clock;
 import java.util.Date;
 import java.util.Map;
 
@@ -18,11 +19,13 @@ import java.util.Map;
 public class QuestionAnswerCreator extends Creator {
 
     private final QuestionRepository questionRepository;
+    private final Clock clock;
 
     @Autowired
-    public QuestionAnswerCreator(NamedParameterJdbcTemplate jdbcTemplate, UserRepository userRepository, QuestionRepository questionRepository) {
+    public QuestionAnswerCreator(NamedParameterJdbcTemplate jdbcTemplate, UserRepository userRepository, QuestionRepository questionRepository, Clock clock) {
         super("question_answer", jdbcTemplate);
         this.questionRepository = questionRepository;
+        this.clock = clock;
     }
 
     public QuestionAnswer createAndSave(QuestionAnswerInput input) {
@@ -38,7 +41,7 @@ public class QuestionAnswerCreator extends Creator {
                 input.question(),
                 input.author(),
                 input.answers(),
-                new Timestamp(new Date().getTime())
+                new Timestamp(clock.millis())
         );
     }
 
@@ -47,14 +50,15 @@ public class QuestionAnswerCreator extends Creator {
         var questionKey = questionRepository.findKey(answer.question()).orElseThrow();
         var answers = Converter.ToDatabase.stringList(answer.answers());
 
-        var sql = "INSERT INTO question_answer (id, question, student, answers) " +
-                  "VALUES (:id, :question, :student, :answers)";
+        var sql = "INSERT INTO question_answer (id, question, student, answers, created_at) " +
+                  "VALUES (:id, :question, :student, :answers, :createdAt)";
 
         var params = Map.of(
                 "id", answer.id().id(),
                 "student", studentKey,
                 "answers", answers,
-                "question", questionKey
+                "question", questionKey,
+                "createdAt", answer.createdAt()
         );
 
         jdbcTemplate.update(sql, params);

@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.Clock;
 import java.util.Date;
 import java.util.Map;
 
@@ -19,12 +20,14 @@ public class QuestionEvaluationCreator extends Creator{
 
     private final QuestionAnswerRepository answerRepository;
     private final UserRepository userRepository;
+    private final Clock clock;
 
     @Autowired
-    protected QuestionEvaluationCreator(NamedParameterJdbcTemplate jdbcTemplate, QuestionAnswerRepository answerRepository, UserRepository userRepository) {
+    protected QuestionEvaluationCreator(NamedParameterJdbcTemplate jdbcTemplate, QuestionAnswerRepository answerRepository, UserRepository userRepository, Clock clock) {
         super("question_evaluation", jdbcTemplate);
         this.answerRepository = answerRepository;
         this.userRepository = userRepository;
+        this.clock = clock;
     }
 
     public QuestionEvaluation create(QuestionEvaluationInput input) {
@@ -36,7 +39,8 @@ public class QuestionEvaluationCreator extends Creator{
                 input.author(),
                 input.comments(),
                 input.score(),
-                new Timestamp(new Date().getTime()));
+                new Timestamp(clock.millis())
+        );
     }
 
     private void save(QuestionEvaluation evaluation) {

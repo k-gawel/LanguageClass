@@ -3,7 +3,6 @@ package service;
 import model.domain.ID;
 import model.domain.answer.QuestionAnswer;
 import model.domain.content.ChooseAWordQuestion;
-import model.domain.content.Question;
 import model.domain.user.Student;
 import model.repository.Provider;
 import model.repository.QuestionAnswerRepository;
@@ -13,28 +12,30 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import utils.DummyClock;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.Clock;
 import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class QuestionAnswerCreatorTest {
+    private final Clock clock = new DummyClock();
 
     private final QuestionAnswerRepository questionAnswerRepository;
-    private final NamedParameterJdbcTemplate jdbcTemplate;
     private final DataSource dataSource;
     private final QuestionAnswerCreator creator;
 
     QuestionAnswerCreatorTest() {
         this.dataSource = Provider.getDataSource();
-        this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
         var questionRepository = new QuestionRepository(jdbcTemplate);
         questionAnswerRepository = new QuestionAnswerRepository(jdbcTemplate, questionRepository);
-        creator = new QuestionAnswerCreator(jdbcTemplate, new UserRepository(jdbcTemplate), questionRepository);
+        creator = new QuestionAnswerCreator(jdbcTemplate, new UserRepository(jdbcTemplate), questionRepository, clock);
     }
 
     @Test
@@ -47,7 +48,7 @@ class QuestionAnswerCreatorTest {
                 new ID<>(ChooseAWordQuestion.class, "question"),
                 new ID<>(Student.class, "student"),
                 List.of("answer1", "answer2", "answer3"),
-                new Timestamp(new Date().getTime())
+                new Timestamp(clock.millis())
         );
 
         creator.save(answer);

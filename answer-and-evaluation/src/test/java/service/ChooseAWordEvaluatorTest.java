@@ -11,27 +11,34 @@ import model.input.QuestionEvaluationInput;
 import model.repository.QuestionRepository;
 import org.junit.jupiter.api.Test;
 import service.evaluator.ChooseAWordEvaluator;
+import utils.DummyClock;
 
 import java.sql.Timestamp;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAccessor;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ChooseAWordEvaluatorTest {
 
+    private final Clock clock = new DummyClock();
+
     private final QuestionEvaluationCreator creator =
-            new QuestionEvaluationCreator(null, null, null) {
-        @Override
-        public QuestionEvaluation create(QuestionEvaluationInput input) {
-            return new QuestionEvaluation(
-                    new ID<>(QuestionEvaluation.class, "EVALUATION_ID"),
-                    input.answer(),
-                    input.author(),
-                    input.comments(),
-                    input.score(),
-                    new Timestamp(new Date().getTime())
-            );
-        }
+            new QuestionEvaluationCreator(null, null, null, new DummyClock()) {
+                @Override
+                public QuestionEvaluation create(QuestionEvaluationInput input) {
+                    return new QuestionEvaluation(
+                            new ID<>(QuestionEvaluation.class, "EVALUATION_ID"),
+                            input.answer(),
+                            input.author(),
+                            input.comments(),
+                            input.score(),
+                            new Timestamp(clock.millis())
+                    );
+                }
     };
 
     private final Map<ID<ChooseAWordQuestion>, ChooseAWordQuestion> dataSource = new HashMap<>();
@@ -62,7 +69,7 @@ class ChooseAWordEvaluatorTest {
                 new ID<>(ChooseAWordQuestion.class, "QUESTION_ID"),
                 new ID<>(Student.class, "STUDENT_ID"),
                 List.of("A", "D"),
-                new Timestamp(new Date().getTime())
+                new Timestamp(clock.millis())
         );
 
         var evaluation = evaluator.evaluate(answer);
@@ -73,12 +80,13 @@ class ChooseAWordEvaluatorTest {
                 new ID<>(Teacher.class, "ADMIN"),
                 List.of("true", "false"),
                 50,
-                new Timestamp(new Date().getTime())
+                new Timestamp(clock.millis())
         );
 
         assertEquals(expected.answer(), evaluation.answer());
         assertEquals(expected.comments(), evaluation.comments());
         assertEquals(expected.score(), evaluation.score());
+        assertEquals(expected.createdAt(), evaluation.createdAt());
     }
 
 }

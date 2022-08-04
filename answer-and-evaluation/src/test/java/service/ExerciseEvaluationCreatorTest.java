@@ -11,10 +11,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import utils.DummyClock;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.Clock;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,14 +27,14 @@ class ExerciseEvaluationCreatorTest {
     private final ExerciseEvaluationRepository repository;
     private final ExerciseEvaluationCreator creator;
     private final DataSource dataSource;
-    private final QuestionEvaluationCreator questionEvaluationCreator;
 
-    ExerciseEvaluationCreatorTest(QuestionEvaluationCreator questionEvaluationCreator) {
-        this.questionEvaluationCreator = questionEvaluationCreator;
+    private final Clock clock = new DummyClock();
+
+    ExerciseEvaluationCreatorTest() {
         this.dataSource = Provider.getDataSource();
         var template = new NamedParameterJdbcTemplate(dataSource);
         this.repository = new ExerciseEvaluationRepository(template);
-        this.creator = new ExerciseEvaluationCreator(template);
+        this.creator = new ExerciseEvaluationCreator(template, clock);
     }
 
     @Test
@@ -52,15 +54,11 @@ class ExerciseEvaluationCreatorTest {
                 Collections.emptyList(),
                 "comment",
                 130,
-                null
+                new Timestamp(clock.millis())
         );
         var result = creator.create(input);
 
-        assertEquals(expected.id(), result.id());
-        assertEquals(expected.comment(), result.comment());
-        assertEquals(expected.author(), result.author());
-        assertEquals(expected.answer(), result.answer());
-        assertEquals(expected.questionEvaluations(), result.questionEvaluations());
+        assertEquals(expected, result);
     }
 
     @Test
@@ -76,17 +74,14 @@ class ExerciseEvaluationCreatorTest {
                 Collections.emptyList(),
                 "comment",
                 130,
-                new Timestamp(1500L)
+                new Timestamp(clock.millis())
         );
 
         creator.save(evaluation);
 
         var result = repository.findById(id).orElseThrow();
-        assertEquals(evaluation.id(), result.id());
-        assertEquals(evaluation.comment(), result.comment());
-        assertEquals(evaluation.author(), result.author());
-        assertEquals(evaluation.answer(), result.answer());
-        assertEquals(evaluation.questionEvaluations(), result.questionEvaluations());
+
+        assertEquals(evaluation, result);
     }
 
 
