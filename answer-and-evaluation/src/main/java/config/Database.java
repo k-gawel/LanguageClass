@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
+import java.time.Clock;
 
 @Configuration
 @ComponentScan("model.repository")
@@ -25,6 +26,11 @@ public class Database {
     @Bean
     public NamedParameterJdbcTemplate namedParameterJdbcTemplate(DataSource dataSource) {
         return new NamedParameterJdbcTemplate(dataSource);
+    }
+
+    @Bean
+    public Clock clock() {
+        return  Clock.systemDefaultZone();
     }
 
 }
