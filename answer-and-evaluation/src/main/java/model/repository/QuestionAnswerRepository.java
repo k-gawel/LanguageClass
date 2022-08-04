@@ -60,12 +60,12 @@ public class QuestionAnswerRepository {
 
         Optional.ofNullable(criteria.offset()).ifPresent(o -> {
             params.put("offset", o);
-            queryBuilder.append("OFFSET :offset ");
+            queryBuilder.append(" OFFSET :offset ");
         });
 
         Optional.ofNullable(criteria.limit()).ifPresent(l -> {
             params.put("limit", l);
-            queryBuilder.append("LIMIT :limit");
+            queryBuilder.append(" LIMIT :limit");
         });
 
         return jdbcTemplate.queryForStream(queryBuilder.toString(), params, mapper).toList();
@@ -73,7 +73,7 @@ public class QuestionAnswerRepository {
 
     public Optional<QuestionAnswer> findById(ID<QuestionAnswer> id) {
         var query = """
-                    SELECT a.id as id, null as created_at, a.answers as answers,
+                    SELECT a.id as id, a.created_at as createdAt, a.answers as answers,
                            s.id as student, q.id as question, q.type as type
                     FROM question_answer AS a
                     INNER JOIN(
@@ -98,7 +98,7 @@ public class QuestionAnswerRepository {
         var questionIdString = r.getString("question");
         var studentIdString = r.getString("student");
         var answersString = r.getString("answers");
-        var createdAt = r.getTimestamp("created_at");
+        var createdAt = r.getTimestamp("createdAt");
 
         return map(idString, questionIdString, questionTypeString, studentIdString, answersString, createdAt);
     };
