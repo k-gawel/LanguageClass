@@ -17,10 +17,14 @@ public interface Criteria extends SqlParameterSource {
 
     @Override
     default Object getValue(String paramName) throws IllegalArgumentException {
-        return Arrays.stream(this.getClass().getMethods())
+        var method = getMethod(paramName);
+        return invokeMethod(method);
+    }
+
+    private Method getMethod(String paramName) {
+        return Arrays.stream(this.getClass().getDeclaredMethods())
                 .filter(m -> m.getName().equals(paramName) && m.getParameterCount() == 0)
                 .findAny()
-                .map(this::invokeMethod)
                 .orElseThrow(() -> new IllegalArgumentException(paramName));
     }
 
@@ -29,7 +33,7 @@ public interface Criteria extends SqlParameterSource {
             return f.invoke(this);
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
-            throw new IllegalArgumentException(f.getName());
+            throw new IllegalArgumentException(f.getName(), e);
         }
     }
 }

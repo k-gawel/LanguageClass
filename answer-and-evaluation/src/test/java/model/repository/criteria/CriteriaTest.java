@@ -2,6 +2,8 @@ package model.repository.criteria;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CriteriaTest {
@@ -18,6 +20,14 @@ class CriteriaTest {
         assertEquals(1, criteria.getValue("value1"));
         assertEquals("2", criteria.getValue("value2"));
         assertThrows(IllegalArgumentException.class, () -> criteria.getValue("value3"));
+    }
+
+    @Test
+    public void questionAnswerCriteriaTest() {
+        var criteria = QuestionAnswerCriteria.builder().questions(List.of("XXX")).build();
+
+        assertTrue(criteria.hasValue("questions"));
+        assertEquals(List.of("XXX"), criteria.getValue("questions"));
     }
 
 }
