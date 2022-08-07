@@ -5,8 +5,10 @@ import model.domain.answer.QuestionAnswer;
 import model.domain.content.ChooseAWordQuestion;
 import model.domain.content.Question;
 import model.domain.user.Student;
+import model.repository.content.QuestionRepository;
 import model.repository.criteria.QuestionAnswerCriteria;
 import model.repository.utils.Converter;
+import org.jooq.tools.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Repository
 public class QuestionAnswerRepository {
@@ -22,11 +26,22 @@ public class QuestionAnswerRepository {
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final String tableName = "question_answer";
 
+
     @Autowired
     public QuestionAnswerRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, QuestionRepository questionRepository) {
         jdbcTemplate = namedParameterJdbcTemplate;
     }
 
+    public Optional<ID<QuestionAnswer>> findId(String id) {
+        return jdbcTemplate.queryForStream(
+                "SELECT COUNT(*) as count FROM question_answer WHERE id = :id",
+                    Map.of("id", id),
+                    (r, i) -> r.getLong("count")
+                )
+                .filter(i -> i == 1)
+                .map(i -> new ID<>(QuestionAnswer.class, id))
+                .findAny();
+    }
 
     public Optional<Long> findKey(ID<QuestionAnswer> answer) {
         var sql = "SELECT key FROM " + tableName + " WHERE id = :id";
@@ -35,88 +50,52 @@ public class QuestionAnswerRepository {
     }
 
     public List<QuestionAnswer> findByCriteria(QuestionAnswerCriteria criteria) {
-        var queryBuilder = new StringBuilder("""
-                    SELECT a.id as id, null as createdAt, a.answers as answers,
-                           s.id as student, q.id as question, q.type as type
-                    FROM question_answer AS a
-                    INNER JOIN(
-                        SELECT key, id, 'choose-a-word' as type FROM chooseaword_content
-                        UNION ALL
-                        SELECT key, id, 'fill-a-word' as type FROM fillaword_content
-                    ) AS q ON a.question = q.key AND (:questions IS NULL OR q.id IN :questions)
-                    INNER JOIN
-                    app_user s ON a.student = s.key AND (:students IS NULL OR s.id IN :students)
-                    WHERE (:ids IS NULL OR a.id IN :ids)
-                    AND (:startDate IS NULL OR a.created_at >= :startDate)
-                    AND (:endDate IS NULL OR a.created_at <= :endDate)\n
-                    """);
+        var query = SELECT
+                    + getConditions(criteria)
+                    + (criteria.limit() != null ? " LIMIT :limit " : "")
+                    + (criteria.offset() != null ? " OFFSET :offset " : "");
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("ids", criteria.ids());
-        params.put("students", criteria.students());
-        params.put("questions", criteria.questions());
-        params.put("startDate", criteria.startDate());
-        params.put("endDate", criteria.endDate());
-
-        Optional.ofNullable(criteria.offset()).ifPresent(o -> {
-            params.put("offset", o);
-            queryBuilder.append(" OFFSET :offset ");
-        });
-
-        Optional.ofNullable(criteria.limit()).ifPresent(l -> {
-            params.put("limit", l);
-            queryBuilder.append(" LIMIT :limit");
-        });
-
-        return jdbcTemplate.queryForStream(queryBuilder.toString(), params, mapper).toList();
+        return jdbcTemplate.queryForStream(query, criteria, mapper).toList();
     }
 
     public Optional<QuestionAnswer> findById(ID<QuestionAnswer> id) {
-        var query = """
-                    SELECT a.id as id, a.created_at as createdAt, a.answers as answers,
-                           s.id as student, q.id as question, q.type as type
-                    FROM question_answer AS a
-                    INNER JOIN(
-                        SELECT key, id, 'choose-a-word' as type FROM chooseaword_content
-                        UNION ALL
-                        SELECT key, id, 'fill-a-word' as type FROM fillaword_content
-                    ) AS q ON a.question = q.key
-                    INNER JOIN
-                    app_user s on a.student = s.key
-                    WHERE a.id = :id
-                    """;
+        var criteria = QuestionAnswerCriteria.builder().ids(List.of(id.id())).build();
+        return findByCriteria(criteria).stream().findFirst();
+    }
 
-        var parameters = new MapSqlParameterSource().addValue("id", id.id());
+    private final String SELECT = """
+                                    SELECT a.id as id, a.created_at as createdAt, a.answers as answers,
+                                           s.id as student, q.id as question, q.type as type
+                                    FROM question_answer AS a
+                                    INNER JOIN(
+                                        SELECT key, id, 'choose-a-word' as type FROM chooseaword_content
+                                        UNION ALL
+                                        SELECT key, id, 'fill-a-word' as type FROM fillaword_content
+                                    ) AS q ON a.question = q.key
+                                    INNER JOIN
+                                    app_user s ON a.student = s.key
+                                  """;
 
-        return jdbcTemplate.queryForStream(query, parameters, mapper)
-                .findFirst();
+    private String getConditions(QuestionAnswerCriteria criteria) {
+        return " WHERE " + Stream.of(
+                (criteria.ids() != null ? "a.id IN (:ids)" : ""),
+                (criteria.questions() != null ? "q.id IN (:questions)" : ""),
+                (criteria.students() != null ? "s.id IN (:students)" : ""),
+                (criteria.startDate() != null ? "a.created_at > :startDate" : ""),
+                (criteria.endDate() != null ? "a.created_at < :endDate" : "")
+        ).filter(s -> !StringUtils.isBlank(s)).collect(Collectors.joining(" AND "));
     }
 
     private static final RowMapper<QuestionAnswer> mapper = (r, i) -> {
-        var idString = r.getString("id");
-        var questionTypeString = r.getString("type");
-        var questionIdString = r.getString("question");
-        var studentIdString = r.getString("student");
-        var answersString = r.getString("answers");
-        var createdAt = r.getTimestamp("createdAt");
-
-        return map(idString, questionIdString, questionTypeString, studentIdString, answersString, createdAt);
-    };
-
-    private static QuestionAnswer map(
-            String idString, String questionIdString, String questionTypeString,
-            String studentIdString, String answersString, Timestamp createdAt) {
-
-        var id = new ID<>(QuestionAnswer.class, idString);
-        var questionType = questionTypeFromString(questionTypeString);
-        var questionId = new ID<>(questionType, questionIdString);
-        var studentId = new ID<>(Student.class, studentIdString);
-        var answers = Converter.FromDatabase.stringList(answersString);
-
         return new QuestionAnswer(
-                id, questionId, studentId, answers, createdAt
+                new ID<>(QuestionAnswer.class, r.getString("id")),
+                new ID<>(questionTypeFromString(r.getString("type")), r.getString("question")),
+                new ID<>(Student.class, r
+                        .getString("student")),
+                Converter.FromDatabase.stringList(r.getString("answers")),
+                r.getTimestamp("createdAt")
         );
-    }
+    };
 
     private static Class<? extends Question> questionTypeFromString(String questionTypeString) {
         return switch (questionTypeString) {

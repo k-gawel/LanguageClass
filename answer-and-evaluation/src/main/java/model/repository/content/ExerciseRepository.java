@@ -24,6 +24,15 @@ public class ExerciseRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public Optional<ID<Exercise>> getId(String id) {
+        return jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) = 1 AS exists FROM exercise_content WHERE id = :id",
+                Map.of("id", id),
+                (r, i) -> r.getBoolean("exists") ?
+                        Optional.of(new ID<>(Exercise.class, "id")) : Optional.empty()
+        );
+    }
+
     public Optional<Long> findKey(ID<Exercise> id) {
         return jdbcTemplate.queryForStream(
                 "SELECT key FROM exercise_content WHERE id = :id",

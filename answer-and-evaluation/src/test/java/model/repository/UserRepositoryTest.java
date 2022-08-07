@@ -36,6 +36,24 @@ class UserRepositoryTest {
     }
 
     @Test
+    public void getIdTest() {
+        assertEquals(
+                new ID<>(Teacher.class, "user_id_1"),
+                repository.findId("user_id_1").get()
+        );
+
+        assertEquals(
+                new ID<>(Student.class, "user_id_3"),
+                repository.findId("user_id_3").get()
+        );
+
+        assertTrue(
+                repository.findId("non_existing_id").isEmpty()
+        );
+
+    }
+
+    @Test
     public void when_correctIdOfTeacher_then_returnTeacher() {
         var teacherId = "user_id_1";
         var id = new ID<>(Teacher.class, teacherId);
