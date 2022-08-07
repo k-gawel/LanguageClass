@@ -1,5 +1,7 @@
 package model.repository.criteria;
 
+import lombok.Builder;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,5 +15,9 @@ public record QuestionAnswerCriteria(
         Integer limit,
         Integer offset
 ) implements Criteria {
+
+    @Builder
+    public QuestionAnswerCriteria {
+    }
 
 }

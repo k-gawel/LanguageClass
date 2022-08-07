@@ -4,8 +4,8 @@ import model.domain.ID;
 import model.domain.content.Question;
 import model.domain.user.Student;
 import model.input.QuestionAnswerInput;
-import model.repository.QuestionRepository;
-import model.repository.UserRepository;
+import model.repository.content.QuestionRepository;
+import model.repository.content.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

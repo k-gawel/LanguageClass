@@ -4,7 +4,7 @@ import model.domain.ID;
 import model.domain.evaluation.QuestionEvaluation;
 import model.input.QuestionEvaluationInput;
 import model.repository.QuestionAnswerRepository;
-import model.repository.UserRepository;
+import model.repository.content.UserRepository;
 import model.repository.utils.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.Clock;
-import java.util.Date;
 import java.util.Map;
 
 @Service

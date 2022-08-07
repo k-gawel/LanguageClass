@@ -3,8 +3,8 @@ package service;
 import model.domain.ID;
 import model.domain.answer.QuestionAnswer;
 import model.input.QuestionAnswerInput;
-import model.repository.QuestionRepository;
-import model.repository.UserRepository;
+import model.repository.content.QuestionRepository;
+import model.repository.content.UserRepository;
 import model.repository.utils.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.Clock;
-import java.util.Date;
 import java.util.Map;
 
 @Service

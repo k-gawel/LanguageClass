@@ -6,7 +6,7 @@ import model.domain.content.ChooseAWordQuestion;
 import model.domain.evaluation.QuestionEvaluation;
 import model.domain.user.Teacher;
 import model.input.QuestionEvaluationInput;
-import model.repository.QuestionRepository;
+import model.repository.content.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.QuestionEvaluationCreator;

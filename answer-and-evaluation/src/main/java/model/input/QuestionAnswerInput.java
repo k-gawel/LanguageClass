@@ -11,5 +11,4 @@ public record QuestionAnswerInput(
         ID<Student> author,
         List<String> answers
 ) {
-
 }
