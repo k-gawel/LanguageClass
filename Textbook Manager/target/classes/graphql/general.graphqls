@@ -1,0 +1,23 @@
+type AppUser {
+    id: ID,
+    name: String,
+    role: UserRole
+}
+
+input AppUserInput {
+    name: String,
+    password: String,
+    role: UserRole
+}
+
+enum UserRole {
+    STUDENT, TEACHER
+}
+
+type Mutation {
+    addUser(input: AppUserInput): AppUser
+}
+
+type Query {
+    getUser(id: ID): AppUser
+}

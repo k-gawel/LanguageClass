@@ -1,0 +1,30 @@
+extend type Mutation {
+    createTextbook(input: TextbookInput): Textbook,
+
+    createChapter(input: ChapterInput): CreateChildResponse,
+    moveChapter(textbookId: ID, chapterId: ID, place: Int): Int,
+
+    createExercise(input: ExerciseContentInput): CreateChildResponse,
+    moveChapterPart(chapterId: ID, partId: ID, place: Int): Int,
+
+    createChooseAWordQuestion(exerciseId: ID, input: ChooseAWordInput, place: Int): CreateChildResponse,
+    createFillAWordQuestion(exerciseId: ID, input: FillAWordInput, place: Int): CreateChildResponse,
+    moveQuestion(exerciseId: ID, questionID: ID, place: Int): Int,
+
+    answerAnExercise(input: ExerciseAnswerInput): ExerciseAnswer,
+    evaluateQuestion(input: QuestionEvaluationInput): QuestionEvaluation,
+    evaluateExercise(input: ExerciseContentInput): ExerciseEvaluation
+
+}
+
+union Child = Chapter | ExerciseContent | ChooseAWord | FillAWord
+
+type CreateChildResponse {
+    child: Child,
+    place: Int
+}
+
+type ExerciseAnswerResponse {
+    answer: ExerciseAnswer,
+    evaluation: ExerciseEvaluation
+}

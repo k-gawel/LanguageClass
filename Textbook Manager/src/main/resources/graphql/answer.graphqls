@@ -1,0 +1,52 @@
+type QuestionAnswer {
+    id: ID,
+    question: QuestionContent,
+    answers: [String]
+}
+
+input QuestionAnswerInput {
+    question: ID,
+    answers: [String]
+}
+
+type QuestionEvaluation {
+    id: ID,
+    answer: QuestionAnswer,
+    author: AppUser,
+    rating: Int,
+    comments: [String]
+}
+
+input QuestionEvaluationInput {
+    answer: ID,
+    rating: Int,
+    comments: [String]
+}
+
+type ExerciseAnswer {
+    id: ID,
+    exercise: ExerciseContent,
+    author: AppUser,
+    answers: [QuestionAnswer],
+}
+
+input ExerciseAnswerInput {
+    exercise: ID,
+    answers: [QuestionAnswerInput]
+}
+
+
+type ExerciseEvaluation {
+    id: ID,
+    author: AppUser,
+    answer: ExerciseAnswer,
+    rating: Int,
+    comment: String,
+    questionEvaluations: [QuestionEvaluation]
+}
+
+input ExerciseEvaluationInput {
+    answer: ID,
+    rating: Int,
+    comment: String
+}

@@ -1,0 +1,104 @@
+{
+  "chapter-id": "4480db0d-c6ca-427a-bf30-19a09e10b8a4",
+  "exercises": [
+    {
+      "number": 1,
+      "title": "Praat met je buurman of buurvrouw. Vraag:",
+      "questions-type": "answer-a-question",
+      "questions": [
+        "Wie ben jij?",
+        "Wat is je adres?",
+        "Uit welk land kom je?",
+        "Welke taal spreek je?",
+        "Wat is je nationaliteit?"
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Vul een personaal pronomen in.",
+      "questions-type": "choose-a-word",
+      "choiceOfWords": [
+        "ik", "jij", "je", "u", "hij", "zij", "ze", "het", "wij", "we", "jullie", "zij", "ze"],
+      "content": [
+        {
+          "content-parts": ["Dit is mustafa, mijn buurman. ", null, " woont in de Emmastraat."],
+          "correct-answers": [["hij"]]
+        },
+        {
+          "content-parts": ["Sonja, kun ", 0, " je achternaam spellen?"],
+          "correct-answers": [["jij", "je"]]
+        },
+        {
+          "content-parts": ["Sara en ik gaan naar een cursus. ", 0," hebben twee docenten."],
+          "correct-answers": [["wij", "we"]]
+        },
+        {
+          "content-parts": ["Juha en Arto, komen ", 0, " uit Finland?"],
+          "correct-answers": [["jullie"]]
+        },
+        {
+          "content-parts": ["Mijn naam is Shirley en ", 0, " kom uit Australie."],
+          "correct-answers": [["ik"]]
+        },
+        {
+          "content-parts": ["Mevrouw Govers, hebt ", 0, " het boek?"],
+          "correct-answers": [["u"]]
+        },
+        {
+          "content-parts": ["Dit is andere docent. ", 0, " heet Anne-Marie."],
+          "correct-answers": [["zij", "ze"]]
+        },
+        {
+          "content-parts": ["Jullie docenten zijn Herman en Anne-Marie. ", 0, " geven les."],
+          "correct-answers": [["zij", "ze"]]
+        },
+        {
+          "content-parts": ["Ning komt uit China. En ", 0, ", Yin? Kom ", 1, " ook uit China?"],
+          "correct-answers": [["jij"], ["jij", "je"]]
+        },
+        {
+          "content-parts": [null, " bent nu twee dagen in Nederland en ", null, " spreekt al Nederlands!"],
+          "correct-answers": [["je", "u"], ["je", "u"]]
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Kies en goede vorm van het werkwoord.",
+      "questions-type": "choose-a-word",
+      "questions":
+      [
+        {
+          "choiceOfWords": [["hebben", "hebt"]],
+          "correctAnswers": [["hebben"]],
+          "content": [null, " jullie al pauze?"]
+        },
+        {
+          "choiceOfWords": [["ga, gaan"]],
+          "correctAnswers": [["gaan"]],
+          "content": ["We ", null, " verder met de tekst."]
+        },
+        {
+          "choiceOfWords": [["luister", "luistert"]],
+          "correctAnswers": [["luistert"]],
+          "content": [null, " u naar de docent?"]
+        },
+        {
+          "choiceOfWords": [["geef", "geeft"]],
+          "correctAnswers": [["geeft"]],
+          "content": [null, " Richard ook les?"]
+        },
+        {
+          "choiceOfWords": [["heeft", "hebt"]],
+          "correctAnswers": [["heeft"]],
+          "content": ["Hij ", null, " mijn boek."]
+        },
+        {
+          "choiceOfWords": ["stopt", "stoppen"],
+          "correctAnswers": [["stoppen"]],
+          "content": ["We ", null, " even."]
+        }
+      ]
+    }
+  ]
+}
