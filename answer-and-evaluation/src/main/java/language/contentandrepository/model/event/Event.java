@@ -1,7 +1,7 @@
-package event.events;
+package language.contentandrepository.model.event;
 
-import model.domain.user.AppUser;
-import model.domain.ID;
+import language.contentandrepository.model.domain.user.AppUser;
+import language.contentandrepository.model.DomainID;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -9,13 +9,13 @@ import java.util.Optional;
 
 public class Event<INPUT, OUTPUT> {
 
-    private final ID<AppUser> accessor;
+    private final DomainID<AppUser> accessor;
     private final INPUT input;
     private final OUTPUT output;
     private final List<String> errors;
     private final LocalDateTime date;
 
-    protected Event(ID<AppUser> accessor, INPUT input, OUTPUT output, List<String> errors, LocalDateTime date) {
+    protected Event(DomainID<AppUser> accessor, INPUT input, OUTPUT output, List<String> errors, LocalDateTime date) {
         this.accessor = accessor;
         this.input = input;
         this.output = output;
@@ -25,11 +25,11 @@ public class Event<INPUT, OUTPUT> {
             throw new IllegalArgumentException();
     }
 
-    public Event(ID<AppUser> accessor, INPUT input, OUTPUT output) {
+    public Event(DomainID<AppUser> accessor, INPUT input, OUTPUT output) {
         this(accessor, input, output, null, LocalDateTime.now());
     }
 
-    public Event(ID<AppUser> accessor, INPUT input, List<String> errors) {
+    public Event(DomainID<AppUser> accessor, INPUT input, List<String> errors) {
         this(accessor, input, null, errors, LocalDateTime.now());
     }
 
@@ -49,7 +49,7 @@ public class Event<INPUT, OUTPUT> {
         return date;
     }
 
-    public ID<AppUser> accessor() {
+    public DomainID<AppUser> accessor() {
         return accessor;
     }
 

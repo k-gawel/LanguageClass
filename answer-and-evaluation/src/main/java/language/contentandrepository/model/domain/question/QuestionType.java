@@ -1,11 +1,12 @@
-package model.domain.content;
+package language.contentandrepository.model.domain.question;
 
 import java.util.Arrays;
 
 public enum QuestionType {
 
-    CHOOSE_A_WORD("choose_a_word", ChooseAWordQuestion.class),
-    FILL_A_WORD("fill_a_word", Question.class);
+    CHOOSE_A_WORD("choose_a_word", ChooseAWord.class),
+    FILL_A_WORD("fill_a_word", Question.class),
+    ANSWER_A_QUESTION("answer_a_question", AnswerAQuestion.class);
 
     private final String stringValue;
     private final Class<? extends Question> questionClass;
