@@ -7,6 +7,7 @@ import language.contentandrepository.persistence.mapper.EntityToModelMapper;
 import language.contentandrepository.model.Domain;
 import language.contentandrepository.model.DomainID;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -29,11 +30,12 @@ public class BaseContentRepository<D extends Domain, E extends IdentifiableEntit
         this.domainCache = domainCache;
         this.jpaRepository = jpaRepository;
 
-        this.domainIdGenerator = new DomainIdGenerator<D>(domainCache, idsJpaRepository);
+        this.domainIdGenerator = new DomainIdGenerator<>(domainCache, idsJpaRepository);
     }
 
     public List<D> find(Predicate<D> predicate) {
-        return domainCache.getAll().stream().filter(predicate).toList();
+        var result = domainCache.getAll().stream().filter(predicate).toList();
+        return new ArrayList<>(result);
     }
 
     @Override
