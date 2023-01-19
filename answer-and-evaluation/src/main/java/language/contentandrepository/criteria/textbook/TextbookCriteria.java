@@ -8,7 +8,7 @@ public record TextbookCriteria(
         String title,
         List<String> authors,
         List<String> allowedUsers,
-        List<String> containingChapters,
+        List<String> containedChapters,
         LocalDateTime after,
         LocalDateTime before
 ) {

@@ -1,0 +1,9 @@
+input TextbookCriteria {
+        ids: [ID],
+        title: String,
+        authors: [ID],
+        allowedUsers: [ID],
+        containedChapters: [ID],
+        after: Date,
+        before: Date
+}

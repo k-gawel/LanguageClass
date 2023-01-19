@@ -38,7 +38,7 @@ public class TextbookElementsRepositoryImpl implements TextbookElementsRepositor
             Supplier<Collection<DomainID<Student>>> allowedUsersSupplier = () -> textbookAccessRepository.getByTextbook(textbook.id()).allowedStudents();
             return containsOrEmpty(criteria.ids(), textbook.id()) &&
                     containsOrEmpty(criteria.authors(), textbook.author()) &&
-                    containsAllOrEmpty(textbook.chapters(), criteria.containingChapters()) &&
+                    containsAllOrEmpty(textbook.chapters(), criteria.containedChapters()) &&
                     containsOrEmpty(criteria.title(), textbook.title()) &&
                     isBetween(criteria.after(), criteria.before(), textbook.createdAt()) &&
                     containsAllOrEmpty(allowedUsersSupplier, criteria.allowedUsers());
