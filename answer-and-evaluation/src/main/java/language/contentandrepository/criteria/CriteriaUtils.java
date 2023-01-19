@@ -21,7 +21,7 @@ public class CriteriaUtils {
 
     public static boolean containsOrEmpty(String string, String subString) {
         final String regex = "[^aA-zZ0-9]";
-        return StringUtils.isEmpty(subString) ||
+        return StringUtils.isBlank(subString) ||
                 string.replaceAll(regex, "").contains(subString.replaceAll(regex, ""));
     }
 

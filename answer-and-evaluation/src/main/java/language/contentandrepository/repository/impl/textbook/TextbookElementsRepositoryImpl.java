@@ -39,7 +39,7 @@ public class TextbookElementsRepositoryImpl implements TextbookElementsRepositor
             return containsOrEmpty(criteria.ids(), textbook.id()) &&
                     containsOrEmpty(criteria.authors(), textbook.author()) &&
                     containsAllOrEmpty(textbook.chapters(), criteria.containedChapters()) &&
-                    containsOrEmpty(criteria.title(), textbook.title()) &&
+                    containsOrEmpty(textbook.title(), criteria.title()) &&
                     isBetween(criteria.after(), criteria.before(), textbook.createdAt()) &&
                     containsAllOrEmpty(allowedUsersSupplier, criteria.allowedUsers());
         };
