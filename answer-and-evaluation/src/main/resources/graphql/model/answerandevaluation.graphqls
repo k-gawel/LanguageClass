@@ -1,0 +1,30 @@
+type QuestionAnswer {
+    id: ID,
+    question: Question,
+    student: Student,
+    answers: [String],
+}
+
+type ExerciseAnswer {
+    id: ID,
+    exercise: Exercise,
+    author: Student,
+    answers: [QuestionAnswer],
+}
+
+type QuestionEvaluation {
+    id: ID,
+    answer: QuestionAnswer,
+    author: Teacher,
+    comments: [String],
+    score: int,
+}
+
+type ExerciseEvaluation {
+    id: ID,
+    author: Teacher,
+    answer: ExerciseAnswer,
+    questionEvaluations: [QuestionEvaluation],
+    comment: String,
+    score: int,
+}

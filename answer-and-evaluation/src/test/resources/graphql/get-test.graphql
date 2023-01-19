@@ -1,0 +1,7 @@
+query GetTest {
+    testQuery {
+        id, child {
+         id
+        }
+    }
+}

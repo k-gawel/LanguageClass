@@ -1,0 +1,26 @@
+type Textbook {
+    id: ID,
+    title: String,
+    chapters: [Chapter]
+}
+
+type Chapter {
+    id: ID,
+    title: String,
+    content: [ChapterContent]
+}
+
+union ChapterContent = Example | ExerciseAnswer
+
+type Example {
+    id: ID,
+    title: String,
+    content: String
+}
+
+type Exercise {
+    id: ID,
+    title: String,
+    questionType: QuestionType,
+    questions: [Question]
+}

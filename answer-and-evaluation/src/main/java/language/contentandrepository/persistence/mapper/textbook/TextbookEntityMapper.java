@@ -1,5 +1,6 @@
 package language.contentandrepository.persistence.mapper.textbook;
 
+import language.contentandrepository.model.domain.user.Teacher;
 import language.contentandrepository.persistence.mapper.EntityToModelMapper;
 import language.contentandrepository.model.domain.textbook.Chapter;
 import language.contentandrepository.model.domain.textbook.Textbook;
@@ -28,7 +29,9 @@ public class TextbookEntityMapper implements EntityToModelMapper<TextbookEntity,
                 entity.getTitle(),
                 entity.getChapters().stream()
                         .map(i -> new DomainID<>(Chapter.class, i.getId()))
-                        .toList()
+                        .toList(),
+                new DomainID<>(Teacher.class, entity.getAuthor().getId()),
+                entity.getCreatedAt()
         );
     }
 

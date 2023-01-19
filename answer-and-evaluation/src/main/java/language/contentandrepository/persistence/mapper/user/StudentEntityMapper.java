@@ -24,7 +24,7 @@ public class StudentEntityMapper implements EntityToModelMapper<StudentEntity, S
 
     @Override
     public StudentEntity toEntity(Student model)  {
-        throw new IllegalCallerException("No user.graphqls persistence in this service.");
+        throw new IllegalCallerException("No user.graphqls persistence in this languageuser.service.");
     }
 
 }

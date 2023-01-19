@@ -1,0 +1,24 @@
+enum QuestionType {
+    CHOOSE_A_WORD,
+    FILL_A_WORD
+}
+
+union Question = ChooseAWord | FillAWord | AnswerAQuestion
+
+type ChooseAWord {
+    id: ID,
+    content: [String],
+    correctAnswers: [[String]],
+    wordChoice: [[String]]
+}
+
+type AnswerAQuestion {
+    id: ID,
+    content: [String]
+}
+
+type FillAWord {
+    id: ID,
+    content: [String],
+    correctAnswers: [[String]]
+}

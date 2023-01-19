@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "exercise_content")
 @Getter @Setter @NoArgsConstructor
 public class ExerciseEntity extends ExerciseTable {
 
@@ -24,6 +23,7 @@ public class ExerciseEntity extends ExerciseTable {
                inverseJoinColumns = @JoinColumn(name = "question")
     )
     private List<QuestionContentEntity.ID> questions;
+
 
     @Entity
     @Getter @Setter @NoArgsConstructor

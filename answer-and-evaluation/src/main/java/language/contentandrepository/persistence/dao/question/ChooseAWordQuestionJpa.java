@@ -20,7 +20,7 @@ public interface ChooseAWordQuestionJpa extends IdentifiableEntityJpaRepository<
     interface ID extends IdsJpaRepository<ChooseAWordQuestionEntity.ID> {
 
         @Override
-        @Query("SELECT new java.lang.String(id) FROM ChooseAWordQuestionEntity WHERE id LIKE '#1%%'")
+        @Query("SELECT new java.lang.String(id) FROM ChooseAWordQuestionEntity WHERE id LIKE concat(?1, '__%%')")
         List<String> findIdsStartingWith(String beginString);
 
     }

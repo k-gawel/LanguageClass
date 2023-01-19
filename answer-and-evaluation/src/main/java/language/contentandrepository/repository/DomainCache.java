@@ -10,12 +10,17 @@ import java.util.Optional;
 
 public class DomainCache<E extends Domain> implements IdsRepository {
 
+    public DomainCache(E... objects) {
+        for (E object : objects) {
+            this.map.put(object.id(), object);
+        }
+    }
+
     private final Map<DomainID<E>, E> map = new HashMap<>();
 
     public boolean add(E object) {
 
         if(map.containsKey(object.id()))
-
             return false;
 
         map.put(object.id(), object);
@@ -32,8 +37,20 @@ public class DomainCache<E extends Domain> implements IdsRepository {
         }
     }
 
+    public boolean contains(E object) {
+        return map.containsValue(object);
+    }
+
+    public boolean contains(DomainID<E> key) {
+        return map.containsKey(key);
+    }
+
     public Optional<E> findById(DomainID<E> id) {
         return findById(id.id());
+    }
+
+    public List<E> getAll() {
+        return map.values().stream().toList();
     }
 
     public Optional<E> findById(String idString) {

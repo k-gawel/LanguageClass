@@ -1,7 +1,7 @@
 package language.contentandrepository.model.event.answerandevalution;
 
 import language.contentandrepository.model.domain.answerandevaluation.ExerciseAnswer;
-import language.service.input.ExerciseAnswerInput;
+import language.graphql.answerandevaluation.input.ExerciseAnswerInput;
 import language.contentandrepository.model.DomainID;
 import language.contentandrepository.model.domain.user.AppUser;
 import language.contentandrepository.model.event.Event;

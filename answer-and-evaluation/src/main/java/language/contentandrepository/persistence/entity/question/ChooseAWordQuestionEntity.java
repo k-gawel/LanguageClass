@@ -10,7 +10,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "question_content")
 @DiscriminatorValue(value = "choose_a_word")
 @Getter @Setter @NoArgsConstructor
 public class ChooseAWordQuestionEntity extends QuestionContentEntity {

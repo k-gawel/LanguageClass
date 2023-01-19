@@ -22,8 +22,16 @@ public enum QuestionType {
                 .findFirst().orElseThrow();
     }
 
+    public static QuestionType fromClass(Class<? extends Question> type) {
+        return Arrays.stream(values()).filter(i -> i.questionClass.equals(type)).findFirst().orElseThrow();
+    }
+
     public Class<? extends Question> questionClass() {
         return questionClass;
+    }
+
+    public String toString() {
+        return stringValue;
     }
 
 }

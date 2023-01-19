@@ -1,0 +1,8 @@
+extend type Mutation {
+    login(name: String!, password: String!): UserDetails
+}
+
+type UserDetails {
+    token: String,
+    id: ID
+}

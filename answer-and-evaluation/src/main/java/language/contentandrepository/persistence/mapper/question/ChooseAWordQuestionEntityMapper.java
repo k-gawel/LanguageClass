@@ -10,7 +10,7 @@ import language.contentandrepository.persistence.entity.question.ChooseAWordQues
 
 @Component
 @AllArgsConstructor
-public class ChooseAWordQuestionEntityMapper implements EntityToModelMapper<ChooseAWordQuestionEntity, ChooseAWord> {
+    public class ChooseAWordQuestionEntityMapper implements EntityToModelMapper<ChooseAWordQuestionEntity, ChooseAWord> {
 
     private final ChooseAWordQuestionJpa chooseAWordQuestionJpa;
 

@@ -1,13 +1,15 @@
 package language.contentandrepository.persistence.entity.answerandevaluation;
 
+import language.contentandrepository.persistence.entity.IdentifiableEntity;
+import language.contentandrepository.persistence.entity.user.TeacherEntity;
+import language.contentandrepository.persistence.entity.utils.StringListConverter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import language.contentandrepository.persistence.entity.IdentifiableEntity;
-import language.contentandrepository.persistence.entity.user.TeacherEntity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "question_evaluation")
@@ -26,7 +28,8 @@ public class QuestionEvaluationEntity extends IdentifiableEntity {
     private TeacherEntity.ID teacher;
 
     @Column(name = "comments")
-    private String comments;
+    @Convert(converter = StringListConverter.class)
+    private List<String> comments;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

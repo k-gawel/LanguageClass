@@ -20,7 +20,7 @@ public interface TextbookJpa extends IdentifiableEntityJpaRepository<TextbookEnt
     interface ID extends IdsJpaRepository<TextbookEntity.ID> {
 
         @Override
-        @Query("SELECT new java.lang.String(id) FROM TextbookEntity WHERE id LIKE '#1%%'")
+        @Query("SELECT new java.lang.String(id) FROM TextbookEntity WHERE id LIKE concat(?1, '__%%')")
         List<String> findIdsStartingWith(String beginString);
 
     }

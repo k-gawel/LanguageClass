@@ -20,7 +20,7 @@ public interface TeacherJpa extends IdentifiableEntityJpaRepository<TeacherEntit
     interface ID extends IdsJpaRepository<TeacherEntity.ID> {
 
         @Override
-        @Query("SELECT new java.lang.String(id) FROM TeacherEntity WHERE id LIKE '#1%%'")
+        @Query("SELECT new java.lang.String(id) FROM TeacherEntity WHERE id LIKE concat(?1, '__%%')")
         List<String> findIdsStartingWith(String beginString);
 
 

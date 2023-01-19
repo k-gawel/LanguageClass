@@ -1,0 +1,4 @@
+input TextbookInput{
+    author: ID,
+    title: String
+}

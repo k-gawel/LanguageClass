@@ -20,7 +20,7 @@ public interface ExerciseEvaluationJpa extends IdentifiableEntityJpaRepository<E
     interface ID extends IdsJpaRepository<ExerciseEvaluationEntity.ID> {
 
         @Override
-        @Query("SELECT new java.lang.String(id) FROM ExerciseEvaluationEntity WHERE id LIKE '#1%%'")
+        @Query("SELECT new java.lang.String(id) FROM ExerciseEvaluationEntity WHERE id LIKE concat(?1, '__%%')")
         List<String> findIdsStartingWith(String beginString);
 
 

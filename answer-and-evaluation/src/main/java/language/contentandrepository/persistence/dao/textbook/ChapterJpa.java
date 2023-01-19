@@ -20,7 +20,7 @@ public interface ChapterJpa extends IdentifiableEntityJpaRepository<ChapterEntit
     interface ID extends IdsJpaRepository<ChapterEntity.ID> {
 
         @Override
-        @Query("SELECT new java.lang.String(id) FROM ChapterEntity WHERE id LIKE '#1%%'")
+        @Query("SELECT new java.lang.String(id) FROM ChapterEntity WHERE id LIKE concat(?1, '__%%')")
         List<String> findIdsStartingWith(String beginString);
 
     }

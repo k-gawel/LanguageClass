@@ -1,0 +1,83 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+  <!-- Add your site or application content here -->
+  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+s
+  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+  <script>
+    $("#prospects_form").button(function(e) {
+      e.preventDefault();
+    });
+
+    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'anonymizeIp', true); ga('set', 'transport', 'beacon'); ga('send', 'pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async></script>
+
+  <div style="width: 900px;">
+    <div id="title" style="width: 900px; text-align: center">
+      <h1>
+        Welcom to user module
+      </h1>
+    </div>
+    <div id="forms" style="display: flex">
+      <div id="login" style="width: 300px">
+        <form>
+          <input id="login-username" style="width: 250px" placeholder="username" type="text"/>
+          <input id="login-password" style="width: 250px" placeholder="password" type="text"/>
+          <div onclick="login()" style="width: 250px">Login</div>
+        </form>
+        <div id="login-token">
+        </div>
+      </div>
+      <div id="register-teacher" style="width: 300px">
+          <form>
+            <input id="register-teacher-username" style="width: 250px" placeholder="username" type="text"/>
+            <input id="register-teacher-password" style="width: 250px" placeholder="password" type="text"/>
+            <button style="width: 250px">Login</button>
+          </form>
+          <div id="register-teacher-token">
+          </div>
+      </div>
+      <div id="register-student" style="width: 300px">
+        <form>
+          <input id="register-student-username" style="width: 250px" placeholder="username" type="text"/>
+          <input id="register-student-password" style="width: 250px" placeholder="password" type="text"/>
+          <button style="width: 250px">Login</button>
+        </form>
+        <div id="register-student-token">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+
+</html>

@@ -1,24 +1,21 @@
 package language.contentandrepository.persistence.entity.textbook;
 
-import language.contentandrepository.persistence.entity.IdentifiableEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
 
 @Entity
-@Table(name = "example")
 @Getter @Setter @NoArgsConstructor
-public class ExampleEntity extends IdentifiableEntity {
+public class ExampleEntity extends ExampleTable {
 
     private String title;
 
     private String content;
 
     @Entity
-    @Table(name = "example")
-    public static class ID extends IdentifiableEntity {
+    public static class ID extends ExampleTable {
     }
 
 

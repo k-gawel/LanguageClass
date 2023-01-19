@@ -1,20 +1,14 @@
 package language.contentandrepository.repository.answerandevalution;
 
-import language.contentandrepository.persistence.dao.answerandevaluation.QuestionEvaluationJpa;
-import language.contentandrepository.persistence.entity.answerandevaluation.QuestionEvaluationEntity;
-import language.contentandrepository.persistence.mapper.EntityToModelMapper;
+import language.contentandrepository.model.DomainID;
+import language.contentandrepository.model.domain.answerandevaluation.QuestionAnswer;
 import language.contentandrepository.model.domain.answerandevaluation.QuestionEvaluation;
-import language.contentandrepository.repository.DomainCache;
-import org.springframework.stereotype.Repository;
-import language.contentandrepository.repository.BaseContentRepository;
+import language.contentandrepository.repository.ContentRepository;
 
-@Repository
-public class QuestionEvaluationRepository extends BaseContentRepository<QuestionEvaluation, QuestionEvaluationEntity> {
+import java.util.List;
 
-    public QuestionEvaluationRepository(EntityToModelMapper<QuestionEvaluationEntity, QuestionEvaluation> entityToModelMapper,
-                                        QuestionEvaluationJpa jpaRepository,
-                                        QuestionEvaluationJpa.ID idsJpaRepository) {
-        super(QuestionEvaluation.class, entityToModelMapper, new DomainCache<>(), jpaRepository, idsJpaRepository);
-    }
+public interface QuestionEvaluationRepository extends ContentRepository<QuestionEvaluation> {
+
+    List<QuestionEvaluation> getEvaluationsByAnswer(DomainID<QuestionAnswer> id);
 
 }

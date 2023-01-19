@@ -1,0 +1,14 @@
+interface AppUser {
+    id: ID,
+    name: String
+}
+
+type Student implements AppUser {
+    id: ID,
+    name: String
+}
+
+type Teacher implements AppUser {
+    id: ID,
+    name: String
+}

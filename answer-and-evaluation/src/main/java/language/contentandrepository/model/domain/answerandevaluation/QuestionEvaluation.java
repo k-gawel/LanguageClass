@@ -8,8 +8,8 @@ public record QuestionEvaluation(
         DomainID<QuestionEvaluation> id,
         DomainID<QuestionAnswer> answer,
         DomainID<Teacher> author,
-        String comments,
-        int score,
+        java.util.List<String> comments,
+        Integer score,
         java.time.LocalDateTime createdAt
 ) implements Domain {
 }
