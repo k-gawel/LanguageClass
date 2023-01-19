@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class BaseChooseAWordQuestionRepository extends BaseContentRepository<ChooseAWord, ChooseAWordQuestionEntity>
-implements ChooseAWordQuestionRepository {
+                                               implements ChooseAWordQuestionRepository {
 
     public BaseChooseAWordQuestionRepository(ChooseAWordQuestionEntityMapper entityToModelMapper,
                                              ChooseAWordQuestionJpa jpaRepository,
