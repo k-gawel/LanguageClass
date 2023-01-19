@@ -1,5 +1,7 @@
 package language.contentandrepository.criteria.answerandevaluation;
 
+import lombok.Builder;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,4 +14,7 @@ public record QuestionEvaluationCriteria(
         LocalDateTime after,
         LocalDateTime before
 ) {
+
+    @Builder public QuestionEvaluationCriteria {}
+
 }

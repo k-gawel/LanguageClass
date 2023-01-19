@@ -16,5 +16,6 @@ public record ExerciseEvaluationCriteria(
         LocalDateTime createdBefore
 ) {
 
+    @Builder public ExerciseEvaluationCriteria {}
     
 }

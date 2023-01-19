@@ -1,5 +1,8 @@
 package language.contentandrepository.criteria.textbook;
 
+import lombok.AccessLevel;
+import lombok.Builder;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,4 +15,8 @@ public record TextbookCriteria(
         LocalDateTime after,
         LocalDateTime before
 ) {
+
+    @Builder(access = AccessLevel.PUBLIC)
+    public TextbookCriteria {}
+
 }
