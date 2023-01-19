@@ -1,3 +1,4 @@
 type Query {
-    getTextbook(id: ID): Textbook
+    getTextbook(id: ID): Textbook,
+    findTextbook(criteria: TextbookCriteria): [Textbook]
 }
