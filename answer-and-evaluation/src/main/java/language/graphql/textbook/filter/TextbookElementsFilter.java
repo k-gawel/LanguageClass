@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component("textbookAccessFilter")
 @RequiredArgsConstructor
-public class TextbookAccessFilter {
+public class TextbookElementsFilter {
 
     private final TextbookAccessRepository textbookAccessRepository;
 

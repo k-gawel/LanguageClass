@@ -2,7 +2,9 @@ package language.graphql.textbook.query;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import language.contentandrepository.criteria.textbook.TextbookCriteria;
+import language.contentandrepository.model.domain.textbook.Chapter;
 import language.contentandrepository.model.domain.textbook.Textbook;
+import language.contentandrepository.repository.textbook.ChapterRepository;
 import language.contentandrepository.repository.textbook.TextbookElementsRepository;
 import language.contentandrepository.repository.textbook.TextbookRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,10 +17,11 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class TextbookQuery implements GraphQLQueryResolver {
+public class TextbookElementsQuery implements GraphQLQueryResolver {
 
     private final TextbookElementsRepository textbookElementsRepository;
     private final TextbookRepository textbookRepository;
+    private final ChapterRepository chapterRepository;
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'STUDENT')")
     @PostAuthorize("@textbookAccessFilter.hasAccess(authentication, returnObject)")
@@ -32,4 +35,9 @@ public class TextbookQuery implements GraphQLQueryResolver {
         return textbookElementsRepository.find(criteria);
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @PostAuthorize("@textbookAccessFilter.hasAccess")
+    public Chapter getChapter(String id) {
+        return chapterRepository.getById(id);
+    }
 }

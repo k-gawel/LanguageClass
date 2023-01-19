@@ -30,7 +30,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = LanguageClassApp.class)
-public class TextbookQueryTest {
+public class TextbookElementsQueryTest_textbook {
 
     @MockBean
     TextbookElementsRepository textbookElementsRepository;
@@ -39,7 +39,7 @@ public class TextbookQueryTest {
     TextbookAccessRepository accessRepository;
 
     @Autowired
-    private TextbookQuery textbookQuery;
+    private TextbookElementsQuery textbookQuery;
 
     Student user1 = new Student(new DomainID<>(Student.class, "user1"), "student1");
     Student user2 = new Student(new DomainID<>(Student.class, "user2"), "student2");
