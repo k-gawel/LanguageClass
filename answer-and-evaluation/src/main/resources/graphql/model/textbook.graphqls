@@ -1,6 +1,6 @@
 type Textbook {
     id: ID,
-    author: ID,
+    author: Teacher,
     title: String,
     chapters: [Chapter]
 }
