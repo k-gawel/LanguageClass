@@ -1,6 +1,6 @@
 package language;
 
-import beanmocks.MockedAppUserProvider;
+import language.appconfig.security.MockedAppUserProvider;
 import language.contentandrepository.repository.impl.MockedAppUserRepository;
 import language.contentandrepository.repository.impl.MockedStudentRepository;
 import language.contentandrepository.repository.impl.MockedTeacherRepository;

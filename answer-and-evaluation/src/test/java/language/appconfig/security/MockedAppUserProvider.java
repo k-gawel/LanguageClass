@@ -1,8 +1,5 @@
-package beanmocks;
+package language.appconfig.security;
 
-import language.appconfig.security.AppUserDetails;
-import language.appconfig.security.AppUserProvider;
-import language.appconfig.security.UserAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
