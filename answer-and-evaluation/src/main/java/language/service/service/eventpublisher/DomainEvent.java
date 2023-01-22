@@ -35,6 +35,7 @@ public enum DomainEvent {
     EXAMPLE_MODIFIED("example.modified", ExampleUpdateInput.class, Example.class),
 
     EXERCISE_CREATED("exercise.created", ExerciseCreateInput.class, Exercise.class),
+    EXERCISE_UPDATED("exercise.updated", ExerciseUpdateInput.class, Exercise.class),
     EXERCISE_CONTENT_MODIFIED("exercise.content_modified", ExerciseModifyContentInput.class, List.class),
 
     QUESTION_CREATED_CHOOSE_A_WORD("question.created", ChooseAWordInput.class, ChooseAWord.class),
