@@ -29,10 +29,13 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
+        System.out.println("request.uri = " + request.getRequestURI().toString());
+
         var user = getUserDetailsFromRequest(request);
 
+        System.out.println("user = " + user);
         var authentication = getAuthentication(request, user);
-
+        System.out.println("authentication = " + authentication);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
     }
@@ -49,8 +52,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     private Optional<AppUserDetails> getUserDetailsFromRequest(HttpServletRequest request) {
         final var authHeader= request.getHeader(HttpHeaders.AUTHORIZATION);
+        if(authHeader == null)
+            return Optional.empty();
         var token = StringUtils.removeStart(authHeader, "Bearer").trim();
+
+        System.out.println("authHeader = " + authHeader);
+        System.out.println("token = " + token);
         var user = appUserProvider.findByToken(token);
+        System.out.println("user = " + user);
         return user;
     }
 

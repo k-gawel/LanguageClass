@@ -21,8 +21,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PublisherChapterService implements ChapterService {
 
-    private ChapterRepository chapterRepository;
-    private ChapterContentRepository chapterContentRepository;
+    private final ChapterRepository chapterRepository;
+    private final ChapterContentRepository chapterContentRepository;
 
     @PublishEvent(DomainEvent.CHAPTER_CREATED)
     public Chapter createChapter(ChapterCreateInput input) {

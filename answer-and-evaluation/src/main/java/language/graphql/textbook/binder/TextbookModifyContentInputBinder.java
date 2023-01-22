@@ -18,10 +18,10 @@ public class TextbookModifyContentInputBinder implements InputBinder<ModifyConte
     @Override
     public TextbookContentModifyInput bind(ModifyContentInput source) {
         return new TextbookContentModifyInput(
-                textbookRepository.findById(source.containerId()).orElse(null),
-                chapterRepository.findById(source.containerId()).orElse(null),
-                source.newPlace()
-        );
+        textbookRepository.findById(source.containerId()).orElse(null),
+        chapterRepository.findById(source.contentId()).orElse(null),
+        source.newPlace()
+);
     }
 
     @Override

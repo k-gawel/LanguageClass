@@ -26,13 +26,13 @@ public class TextbookMutation implements GraphQLMutationResolver {
     private final TextbookModifyAccessInputBinder textbookModifyAccessInputBinder;
     private final TextbookModifyContentInputBinder textbookModifyContentInputBinder;
 
-    @PreAuthorize("hasAuthority('TEACHER') and principal.username.equals(#input.author())")
+    @PreAuthorize("hasAuthority('TEACHER') and principal.username.equals(#rawInput.author())")
     public Textbook createTextbook(TextbookInput rawInput) {
         var input = textbookCreateInputBinder.bind(rawInput);
         return textbookService.createTextbook(input);
     }
 
-    @PreAuthorize("hasAuthority('TEACHER') and principal.username.equals(#input.teacher())")
+    @PreAuthorize("hasAuthority('TEACHER') and principal.username.equals(#rawInput.teacher())")
     public boolean changeAccess(TextbookAccessInput rawInput) {
         var input = textbookModifyAccessInputBinder.bind(rawInput);
         return textbookService.changeAccess(input);
