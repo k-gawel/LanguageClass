@@ -1,9 +1,9 @@
 package language.service.service.answerandevaluation.implementations;
 
 import language.contentandrepository.model.domain.answerandevaluation.QuestionEvaluation;
-import language.contentandrepository.repository.impl.BaseTeacherRepository;
-import language.contentandrepository.repository.impl.answerandevaluation.BaseQuestionAnswerRepository;
-import language.contentandrepository.repository.impl.answerandevaluation.BaseQuestionEvaluationRepository;
+import language.contentandrepository.repository.answerandevalution.QuestionAnswerRepository;
+import language.contentandrepository.repository.answerandevalution.QuestionEvaluationRepository;
+import language.contentandrepository.repository.user.TeacherRepository;
 import language.service.service.answerandevaluation.inputs.QuestionEvaluationCreateInput;
 import language.service.service.eventpublisher.DomainEvent;
 import language.service.service.eventpublisher.PublishEvent;
@@ -17,9 +17,9 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class PublisherQuestionEvaluationService {
 
-    private final BaseQuestionAnswerRepository questionAnswerRepository;
-    private final BaseTeacherRepository teacherRepository;
-    private final BaseQuestionEvaluationRepository questionEvaluationRepository;
+    private final QuestionAnswerRepository questionAnswerRepository;
+    private final TeacherRepository teacherRepository;
+    private final QuestionEvaluationRepository questionEvaluationRepository;
 
 
     @PublishEvent(DomainEvent.QUESTION_EVALUATION_CREATED)

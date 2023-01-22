@@ -1,10 +1,10 @@
 package language.service.service.answerandevaluation.implementations;
 
 import language.contentandrepository.model.domain.answerandevaluation.QuestionAnswer;
-import language.contentandrepository.repository.impl.BaseStudentRepository;
-import language.contentandrepository.repository.impl.answerandevaluation.BaseQuestionAnswerRepository;
-import language.contentandrepository.repository.impl.answerandevaluation.BaseQuestionEvaluationRepository;
-import language.contentandrepository.repository.impl.answerandevaluation.BaseQuestionRepository;
+import language.contentandrepository.repository.answerandevalution.QuestionAnswerRepository;
+import language.contentandrepository.repository.answerandevalution.QuestionEvaluationRepository;
+import language.contentandrepository.repository.question.QuestionRepository;
+import language.contentandrepository.repository.user.StudentRepository;
 import language.service.service.answerandevaluation.inputs.QuestionAnswerCreateInput;
 import language.service.service.answerandevaluation.inputs.QuestionAnswerUpdateInput;
 import language.service.service.answerandevaluation.services.QuestionAnswerService;
@@ -19,10 +19,10 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class PublisherQuestionAnswerService implements QuestionAnswerService {
 
-    private final BaseQuestionRepository questionRepository;
-    private final BaseStudentRepository studentRepository;
-    private final BaseQuestionAnswerRepository questionAnswerRepository;
-    private final BaseQuestionEvaluationRepository questionEvaluationRepository;
+    private final QuestionRepository questionRepository;
+    private final StudentRepository studentRepository;
+    private final QuestionAnswerRepository questionAnswerRepository;
+    private final QuestionEvaluationRepository questionEvaluationRepository;
 
     @PublishEvent(DomainEvent.QUESTION_ANSWER_CREATED)
     public QuestionAnswer create(QuestionAnswerCreateInput input) {

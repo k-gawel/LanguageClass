@@ -1,7 +1,7 @@
 package language.service.service.textbook.implementations;
 
 import language.contentandrepository.model.domain.textbook.Example;
-import language.contentandrepository.repository.impl.textbook.BaseExampleRepository;
+import language.contentandrepository.repository.textbook.ExampleRepository;
 import language.service.service.eventpublisher.DomainEvent;
 import language.service.service.eventpublisher.PublishEvent;
 import language.service.service.textbook.inputs.ExampleCreateInput;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PublisherExampleService implements ExampleService {
 
-    private final BaseExampleRepository exampleRepository;
+    private final ExampleRepository exampleRepository;
 
     @PublishEvent(DomainEvent.EXAMPLE_CREATED)
     public Example create(ExampleCreateInput input) {

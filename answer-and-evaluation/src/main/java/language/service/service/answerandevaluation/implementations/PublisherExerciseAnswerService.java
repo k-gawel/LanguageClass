@@ -21,6 +21,7 @@ import java.util.List;
 public class PublisherExerciseAnswerService implements ExerciseAnswerService {
 
     private final Clock clock;
+
     private final TeacherRepository teacherRepository;
     private final ExerciseRepository exerciseRepository;
     private final AnswerAndEvaluationRepository answerAndEvaluationRepository;
