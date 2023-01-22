@@ -36,17 +36,17 @@ public class ChapterMutation implements GraphQLMutationResolver {
         return chapterService.updateChapter(input);
     }
 
-    public List<String> addContent(String chapterId, String contentId) {
+    public List<String> addChapterContent(String chapterId, String contentId) {
         var rawInput = new ModifyContentInput(chapterId, contentId, Integer.MAX_VALUE);
         return modifyContentAndGetIds(rawInput);
     }
 
-    public List<String> removeContent(String chapterId, String contentId) {
+    public List<String> removeChapterContent(String chapterId, String contentId) {
         var rawInput = new ModifyContentInput(chapterId, contentId, Integer.MIN_VALUE);
         return modifyContentAndGetIds(rawInput);
     }
 
-    public List<String> moveContent(String chapterId, String contentId, int newPlace) {
+    public List<String> moveChapterContent(String chapterId, String contentId, int newPlace) {
         var rawInput = new ModifyContentInput(chapterId, contentId, newPlace);
         return modifyContentAndGetIds(rawInput);
     }

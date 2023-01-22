@@ -6,5 +6,13 @@ type Mutation {
     moveTextbookContent(textbook: ID, chapter: ID, place: Int): [ID],
 
     createExample(input: ExampleInput): Example,
+    updateExample(input: ExampleInput): Example,
+
+    createChapter(input: ChapterInput): Chapter,
+    updateChapter(input: ChapterInput): Chapter,
+    addChapterContent(chapter: ID!, content: ID!): [ID],
+    removeChapterContent(chapter: ID!, content: ID!): [ID],
+    moveChapterContent(chapter: ID!, content: ID!, place: Int!): [ID],
+
 
 }

@@ -15,3 +15,9 @@ input ExampleInput {
     title: String,
     content: String
 }
+
+input ChapterInput {
+        chapter: ID,
+        author: ID,
+        title: String
+}
