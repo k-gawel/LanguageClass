@@ -14,5 +14,9 @@ type Mutation {
     removeChapterContent(chapter: ID!, content: ID!): [ID],
     moveChapterContent(chapter: ID!, content: ID!, place: Int!): [ID],
 
-
+    createExercise(input: ExerciseInput): Exercise,
+    updateExercise(input: ExerciseInput): Exercise,
+    addExerciseContent(exercise: ID, content: ID): [ID],
+    removeExerciseContent(exercise: ID, content: ID): [ID],
+    moveExerciseContent(exercise: ID, content: ID, newPlace: Int): [ID]
 }

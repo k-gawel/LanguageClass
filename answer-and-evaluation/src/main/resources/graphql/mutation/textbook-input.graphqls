@@ -21,3 +21,10 @@ input ChapterInput {
         author: ID,
         title: String
 }
+
+input ExerciseInput {
+    id: ID,
+    author: ID,
+    title: String,
+    type: QuestionType
+}
