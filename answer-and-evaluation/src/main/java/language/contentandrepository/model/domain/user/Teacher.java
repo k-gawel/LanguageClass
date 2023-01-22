@@ -7,4 +7,9 @@ public record Teacher(
         DomainID<Teacher> id,
         String name
 ) implements AppUser, Domain {
+
+    public Teacher(DomainID<Teacher> id) {
+        this(id, null);
+    }
+
 }

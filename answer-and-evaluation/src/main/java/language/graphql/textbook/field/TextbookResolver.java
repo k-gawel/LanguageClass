@@ -32,6 +32,12 @@ public class TextbookResolver extends DomainResolver<Textbook> implements GraphQ
                 getProxyChapters(textbook) : getFullChapters(textbook);
     }
 
+    public Teacher author(Textbook textbook, DataFetchingEnvironment environment) {
+        return DataFetchingEnvironmentUtils.isOnlyId(environment.getField()) ?
+                getProxyTeacher(textbook) : teacherRepository.getById(textbook.author());
+
+    }
+
     private List<Chapter> getFullChapters(Textbook textbook) {
         return chapterRepository.getByIds(textbook.chapters());
     }
@@ -41,6 +47,10 @@ public class TextbookResolver extends DomainResolver<Textbook> implements GraphQ
                 .map(DomainID::id)
                 .map(i -> new Chapter(new DomainID<>(Chapter.class, i), null, null))
                 .toList();
+    }
+
+    private Teacher getProxyTeacher(Textbook textbook) {
+        return new Teacher(textbook.author());
     }
 
 }
