@@ -1,18 +1,18 @@
 package language.graphql.textbook.field;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
+import graphql.schema.DataFetchingEnvironment;
+import language.contentandrepository.model.DomainID;
 import language.contentandrepository.model.domain.textbook.Chapter;
 import language.contentandrepository.model.domain.textbook.ChapterContent;
 import language.contentandrepository.model.domain.textbook.Example;
 import language.contentandrepository.model.domain.textbook.Exercise;
+import language.contentandrepository.repository.textbook.ExampleRepository;
+import language.contentandrepository.repository.textbook.ExerciseRepository;
 import language.graphql.shared.DataFetchingEnvironmentUtils;
 import language.graphql.shared.DomainResolver;
-import graphql.schema.DataFetchingEnvironment;
 import lombok.AllArgsConstructor;
-import language.contentandrepository.model.DomainID;
 import org.springframework.stereotype.Component;
-import language.contentandrepository.repository.impl.textbook.BaseExampleRepository;
-import language.contentandrepository.repository.impl.textbook.BaseExerciseRepository;
 
 import java.util.List;
 
@@ -20,8 +20,8 @@ import java.util.List;
 @AllArgsConstructor
 public class ChapterResolver extends DomainResolver<Chapter> implements GraphQLResolver<Chapter> {
 
-    private final BaseExampleRepository exampleRepository;
-    private final BaseExerciseRepository exerciseRepository;
+    private final ExampleRepository exampleRepository;
+    private final ExerciseRepository exerciseRepository;
 
     @Override
     public String id(Chapter domain) {

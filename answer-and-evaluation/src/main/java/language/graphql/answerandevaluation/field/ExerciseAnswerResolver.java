@@ -1,19 +1,19 @@
 package language.graphql.answerandevaluation.field;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
-import language.graphql.shared.ResolverUtils;
-import language.graphql.shared.DataFetchingEnvironmentUtils;
-import language.graphql.shared.DomainResolver;
 import graphql.schema.DataFetchingEnvironment;
 import language.contentandrepository.model.domain.answerandevaluation.ExerciseAnswer;
 import language.contentandrepository.model.domain.answerandevaluation.QuestionAnswer;
 import language.contentandrepository.model.domain.textbook.Exercise;
 import language.contentandrepository.model.domain.user.Student;
-import language.contentandrepository.repository.impl.textbook.BaseExerciseRepository;
-import language.contentandrepository.repository.impl.BaseStudentRepository;
+import language.contentandrepository.repository.answerandevalution.QuestionAnswerRepository;
+import language.contentandrepository.repository.textbook.ExerciseRepository;
+import language.contentandrepository.repository.user.StudentRepository;
+import language.graphql.shared.DataFetchingEnvironmentUtils;
+import language.graphql.shared.DomainResolver;
+import language.graphql.shared.ResolverUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import language.contentandrepository.repository.impl.answerandevaluation.BaseQuestionAnswerRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,9 +22,9 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ExerciseAnswerResolver extends DomainResolver<ExerciseAnswer> implements GraphQLResolver<ExerciseAnswer> {
 
-    private final BaseExerciseRepository exerciseRepository;
-    private final BaseStudentRepository studentRepository;
-    private final BaseQuestionAnswerRepository questionAnswerRepository;
+    private final ExerciseRepository exerciseRepository;
+    private final StudentRepository studentRepository;
+    private final QuestionAnswerRepository questionAnswerRepository;
 
     @Override
     public String id(ExerciseAnswer domain) {

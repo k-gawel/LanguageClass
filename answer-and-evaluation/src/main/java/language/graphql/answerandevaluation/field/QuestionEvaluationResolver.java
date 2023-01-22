@@ -1,15 +1,15 @@
 package language.graphql.answerandevaluation.field;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
-import language.graphql.shared.ResolverUtils;
-import language.graphql.shared.DataFetchingEnvironmentUtils;
-import language.graphql.shared.DomainResolver;
 import graphql.schema.DataFetchingEnvironment;
 import language.contentandrepository.model.domain.answerandevaluation.QuestionAnswer;
 import language.contentandrepository.model.domain.answerandevaluation.QuestionEvaluation;
 import language.contentandrepository.model.domain.user.Teacher;
-import language.contentandrepository.repository.impl.answerandevaluation.BaseQuestionAnswerRepository;
-import language.contentandrepository.repository.impl.BaseTeacherRepository;
+import language.contentandrepository.repository.answerandevalution.QuestionAnswerRepository;
+import language.contentandrepository.repository.user.TeacherRepository;
+import language.graphql.shared.DataFetchingEnvironmentUtils;
+import language.graphql.shared.DomainResolver;
+import language.graphql.shared.ResolverUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -17,8 +17,8 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class QuestionEvaluationResolver extends DomainResolver<QuestionEvaluation> implements GraphQLResolver<QuestionEvaluation> {
 
-    private final BaseQuestionAnswerRepository questionAnswerRepository;
-    private final BaseTeacherRepository teacherRepository;
+    private final QuestionAnswerRepository questionAnswerRepository;
+    private final TeacherRepository teacherRepository;
 
     @Override
     public String id(QuestionEvaluation domain) {

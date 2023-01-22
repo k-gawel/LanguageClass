@@ -1,19 +1,19 @@
 package language.graphql.answerandevaluation.field;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
-import language.graphql.shared.ResolverUtils;
-import language.graphql.shared.DataFetchingEnvironmentUtils;
-import language.graphql.shared.DomainResolver;
 import graphql.schema.DataFetchingEnvironment;
-import language.contentandrepository.repository.impl.BaseTeacherRepository;
-import lombok.AllArgsConstructor;
 import language.contentandrepository.model.domain.answerandevaluation.ExerciseAnswer;
 import language.contentandrepository.model.domain.answerandevaluation.ExerciseEvaluation;
 import language.contentandrepository.model.domain.answerandevaluation.QuestionEvaluation;
 import language.contentandrepository.model.domain.user.Teacher;
+import language.contentandrepository.repository.answerandevalution.ExerciseAnswerRepository;
+import language.contentandrepository.repository.answerandevalution.QuestionEvaluationRepository;
+import language.contentandrepository.repository.user.TeacherRepository;
+import language.graphql.shared.DataFetchingEnvironmentUtils;
+import language.graphql.shared.DomainResolver;
+import language.graphql.shared.ResolverUtils;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import language.contentandrepository.repository.impl.answerandevaluation.BaseExerciseAnswerRepository;
-import language.contentandrepository.repository.impl.answerandevaluation.BaseQuestionEvaluationRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,9 +22,9 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ExerciseEvaluationResolver extends DomainResolver<ExerciseEvaluation> implements GraphQLResolver<ExerciseEvaluation> {
 
-    private final BaseTeacherRepository teacherRepository;
-    private final BaseExerciseAnswerRepository exerciseAnswerRepository;
-    private final BaseQuestionEvaluationRepository questionEvaluationRepository;
+    private final TeacherRepository teacherRepository;
+    private final ExerciseAnswerRepository exerciseAnswerRepository;
+    private final QuestionEvaluationRepository questionEvaluationRepository;
 
     @Override
     public String id(ExerciseEvaluation domain) {
