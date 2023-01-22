@@ -1,4 +1,15 @@
 type Query {
+
     getTextbook(id: ID): Textbook,
-    findTextbook(criteria: TextbookCriteria): [Textbook]
+    findTextbook(criteria: TextbookCriteria): [Textbook],
+    
+    getChapter(id: ID): Chapter.
+    findChapter(criteria: ChapterCriteria): [Chapter],
+
+    getExample(id: ID): Example,
+    findExample(criteria: ExampleCriteria): [Example],
+
+    getExercise(id: ID): Exercise,
+    findExercise(criteria: ExerciseCriteria): [Exercise]
+
 }

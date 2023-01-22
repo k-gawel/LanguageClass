@@ -7,3 +7,22 @@ input TextbookCriteria {
         after: Date,
         before: Date
 }
+
+input ChapterCriteria {
+        ids: [ID],
+        name: String,
+        containingContent: [ID],
+        textbooks: [ID]
+}
+
+input ExampleCriteria {
+        ids: [ID],
+        title: String
+}
+
+input ExerciseCriteria {
+        ids: [ID],
+        title: String,
+        questionTypes: [QuestionType],
+        containsQuestion: [ID]
+}
