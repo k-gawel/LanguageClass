@@ -2,3 +2,10 @@ input TextbookInput{
     author: ID,
     title: String
 }
+
+input TextbookAccessInput {
+    teacher: ID,
+    student: ID,
+    textbook: ID,
+    access: Boolean
+}

@@ -39,21 +39,21 @@ public class TextbookMutation implements GraphQLMutationResolver {
     }
 
     @PreAuthorize("hasAuthority('TEACHER')")
-    public List<String> addContent(String textbookId, String chapterId) {
+    public List<String> addTextbookContent(String textbookId, String chapterId) {
         var rawInput = new ModifyContentInput(textbookId, chapterId, Integer.MAX_VALUE);
         var input = textbookModifyContentInputBinder.bind(rawInput);
         return textbookService.modifyContent(input).stream().map(DomainID::id).toList();
     }
 
     @PreAuthorize("hasAuthority('TEACHER')")
-    public List<String> removeContent(String textbookId, String chapterId) {
+    public List<String> removeTextbookContent(String textbookId, String chapterId) {
         var rawInput = new ModifyContentInput(textbookId, chapterId, -1);
         var input = textbookModifyContentInputBinder.bind(rawInput);
         return textbookService.modifyContent(input).stream().map(DomainID::id).toList();
     }
 
     @PreAuthorize("hasAuthority('TEACHER')")
-    public List<String> moveContent(String textbookId, String chapterId, Integer place) {
+    public List<String> moveTextbookContent(String textbookId, String chapterId, Integer place) {
         var rawInput = new ModifyContentInput(textbookId, chapterId, place);
         var input = textbookModifyContentInputBinder.bind(rawInput);
         return textbookService.modifyContent(input).stream().map(DomainID::id).toList();
