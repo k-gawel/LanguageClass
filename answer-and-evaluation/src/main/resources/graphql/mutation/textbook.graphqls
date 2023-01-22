@@ -3,5 +3,8 @@ type Mutation {
     changeAccess(input: TextbookAccessInput): Boolean!,
     addTextbookContent(textbook: ID, chapter: ID): [ID],
     removeTextbookContent(textbook: ID, chapter: ID): [ID],
-    moveTextbookContent(textbook: ID, chapter: ID, place: Int): [ID]
+    moveTextbookContent(textbook: ID, chapter: ID, place: Int): [ID],
+
+    createExample(input: ExampleInput): Example,
+
 }

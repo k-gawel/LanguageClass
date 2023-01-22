@@ -9,3 +9,9 @@ input TextbookAccessInput {
     textbook: ID,
     access: Boolean
 }
+
+input ExampleInput {
+    id: ID,
+    title: String,
+    content: String
+}

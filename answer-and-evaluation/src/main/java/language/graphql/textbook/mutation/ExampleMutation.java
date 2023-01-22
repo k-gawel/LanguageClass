@@ -3,6 +3,7 @@ package language.graphql.textbook.mutation;
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import language.contentandrepository.model.domain.textbook.Example;
 import language.graphql.textbook.binder.ExampleCreateInputBinder;
+import language.graphql.textbook.binder.ExampleUpdateInputBinder;
 import language.graphql.textbook.input.ExampleInput;
 import language.service.service.textbook.services.ExampleService;
 import lombok.RequiredArgsConstructor;
@@ -14,12 +15,19 @@ import org.springframework.stereotype.Component;
 public class ExampleMutation implements GraphQLMutationResolver {
 
     private final ExampleService exampleService;
-    private final ExampleCreateInputBinder exerciseCreateInputBinder;
+    private final ExampleCreateInputBinder exampleCreateInputBinder;
+    private final ExampleUpdateInputBinder exampleUpdateInputBinder;
 
     @PreAuthorize("hasAuthority('TEACHER')")
     public Example createExample(ExampleInput rawInput) {
-        var input = exerciseCreateInputBinder.bind(rawInput);
+        var input = exampleCreateInputBinder.bind(rawInput);
         return exampleService.create(input);
+    }
+
+    @PreAuthorize("hasAuthority('TEACHER')")
+    public Example updateExample(ExampleInput rawInput) {
+        var input = exampleUpdateInputBinder.bind(rawInput);
+        return exampleService.updateExample(input);
     }
 
 }
