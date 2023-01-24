@@ -1,6 +1,6 @@
 package language.contentandrepository.criteria.answerandevaluation;
 
-import language.contentandrepository.criteria.DomainType;
+import language.contentandrepository.model.DomainID;
 import language.contentandrepository.model.domain.answerandevaluation.QuestionAnswer;
 import language.contentandrepository.model.domain.answerandevaluation.QuestionEvaluation;
 import language.contentandrepository.model.domain.question.Question;
@@ -12,16 +12,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public record QuestionEvaluationCriteria(
-        @DomainType(QuestionEvaluation.class)
-        List<String> ids,
-        @DomainType(QuestionAnswer.class)
-        List<String> answers,
-        @DomainType(Question.class)
-        List<String> questions,
-        @DomainType(Teacher.class)
-        List<String> teachers,
-        @DomainType(Student.class)
-        List<String> students,
+        List<DomainID<QuestionEvaluation>> ids,
+        List<DomainID<QuestionAnswer>> answers,
+        List<DomainID<Question>> questions,
+        List<DomainID<Teacher>> teachers,
+        List<DomainID<Student>> students,
         LocalDateTime after,
         LocalDateTime before
 ) {

@@ -1,11 +1,10 @@
 package language.contentandrepository.criteria.answerandevaluation;
 
-import language.contentandrepository.criteria.DomainType;
+import language.contentandrepository.model.DomainID;
 import language.contentandrepository.model.domain.answerandevaluation.ExerciseAnswer;
 import language.contentandrepository.model.domain.answerandevaluation.ExerciseEvaluation;
 import language.contentandrepository.model.domain.textbook.Exercise;
 import language.contentandrepository.model.domain.user.Student;
-import language.contentandrepository.model.domain.user.Teacher;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
@@ -13,16 +12,11 @@ import java.util.List;
 
 @Builder
 public record ExerciseEvaluationCriteria(
-        @DomainType(ExerciseEvaluation.class)
-        List<String> ids,
-        @DomainType(Teacher.class)
+        List<DomainID<ExerciseEvaluation>> ids,
         List<String> teachers,
-        @DomainType(Student.class)
-        List<String> students,
-        @DomainType(ExerciseAnswer.class)
-        List<String> answers,
-        @DomainType(Exercise.class)
-        List<String> exercises,
+        List<DomainID<Student>> students,
+        List<DomainID<ExerciseAnswer>> answers,
+        List<DomainID<Exercise>> exercises,
         LocalDateTime createdAfter,
         LocalDateTime createdBefore
 ) {

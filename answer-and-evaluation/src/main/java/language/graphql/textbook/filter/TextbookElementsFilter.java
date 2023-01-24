@@ -45,7 +45,7 @@ public class TextbookElementsFilter {
             return true;
 
         return textbookElementsRepository.find(
-                TextbookCriteria.builder().containedChapters(List.of(chapter.id().id())).build()
+                TextbookCriteria.builder().containedChapters(List.of(chapter.id())).build()
         ).stream().anyMatch(t -> hasAccess(user, t));
     }
 

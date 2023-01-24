@@ -11,12 +11,10 @@ import java.util.function.Supplier;
 
 public class CriteriaUtils {
 
-    public static boolean containsOrEmpty(Collection collection, Object object) {
-        return isEmpty(collection) || collection.contains(object);
-    }
 
-    public static boolean containsOrEmpty(Collection<String> collection, DomainID domainID) {
-        return containsOrEmpty(collection, domainID.id());
+
+    public static boolean containsOrEmpty(Collection<DomainID> collection, DomainID domainID) {
+        return isEmpty(collection) || collection.contains(domainID);
     }
 
     public static boolean containsOrEmpty(String string, String subString) {
@@ -25,13 +23,13 @@ public class CriteriaUtils {
                 string.replaceAll(regex, "").contains(subString.replaceAll(regex, ""));
     }
 
-    public static boolean containsAllOrEmpty(Collection<? extends DomainID> collection, Collection<String> elements) {
+    public static boolean containsAllOrEmpty(Collection<? extends DomainID> collection, Collection<? extends DomainID> elements) {
         if(isEmpty(elements))
             return true;
-        return collection.stream().map(DomainID::id).toList().containsAll(elements);
+        return collection.containsAll(elements);
     }
 
-    public static boolean containsAllOrEmpty(Supplier<? extends Collection<? extends DomainID<? extends Domain>>> collectionSupplier, Collection<String> elements) {
+    public static boolean containsAllOrEmpty(Supplier<? extends Collection<? extends DomainID<? extends Domain>>> collectionSupplier, Collection<? extends DomainID<? extends Domain>> elements) {
         return isEmpty(elements) || containsAllOrEmpty(collectionSupplier.get(), elements);
     }
 

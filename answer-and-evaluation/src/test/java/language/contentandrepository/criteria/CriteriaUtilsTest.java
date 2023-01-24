@@ -18,10 +18,10 @@ public class CriteriaUtilsTest {
     public void containsAllOrEmptyTest() {
         var collection = getIds(IntStream.range(0, 10));
 
-        List<String> elementsNull = null;
-        List<String> elements0 = Collections.emptyList();
-        var elementsValid = getIdsAsString(IntStream.range(0,5));
-        var elementsNonValid = getIdsAsString(IntStream.range(6, 11));
+        List<DomainID> elementsNull = null;
+        List<DomainID> elements0 = Collections.emptyList();
+        var elementsValid = getIds(IntStream.range(0,5));
+        var elementsNonValid = getIds(IntStream.range(6, 11));
 
         assertTrue(containsAllOrEmpty(collection, elementsNull));
         assertTrue(containsAllOrEmpty(collection, elements0));
@@ -33,8 +33,5 @@ public class CriteriaUtilsTest {
         return idNumbers.mapToObj(i -> new DomainID(Domain.class, "id" + i)).toList();
     }
 
-    private static List<String> getIdsAsString(IntStream idNumbers) {
-        return getIds(idNumbers).stream().map(DomainID::id).toList();
-    }
 
 }
