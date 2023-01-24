@@ -1,14 +1,9 @@
 package language;
 
-import language.appconfig.security.MockedAppUserProvider;
-import language.contentandrepository.repository.impl.MockedAppUserRepository;
-import language.contentandrepository.repository.impl.MockedStudentRepository;
-import language.contentandrepository.repository.impl.MockedTeacherRepository;
 import language.appconfig.config.IgnoreDuringScan;
 import language.appconfig.security.MicroserviceAppUserProvider;
-import language.contentandrepository.repository.impl.BaseAppUserRepository;
-import language.contentandrepository.repository.impl.BaseStudentRepository;
-import language.contentandrepository.repository.impl.BaseTeacherRepository;
+import language.appconfig.security.MockedAppUserProvider;
+import language.contentandrepository.repository.impl.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -29,7 +24,7 @@ import java.util.Collections;
         "language.graphql",
         "language.contentandrepository.persistence",
         "language.contentandrepository.repository",
-        "language.service.service"
+        "language.service.service",
 })
 @ComponentScan(
         includeFilters = {
@@ -37,17 +32,15 @@ import java.util.Collections;
                         MockedAppUserRepository.class,
                         MockedTeacherRepository.class,
                         MockedStudentRepository.class,
-                        MockedAppUserProvider.class
-                })
+                        MockedAppUserProvider.class})
         },
         excludeFilters = {
         @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = {
                 LanguageClassApp.class,
-                LanguageClassTest.class,
                 MicroserviceAppUserProvider.class,
                 BaseAppUserRepository.class,
                 BaseTeacherRepository.class,
-                BaseStudentRepository.class
+                BaseStudentRepository.class,
         })
 })
 @EnableJpaRepositories(basePackages="language.contentandrepository.persistence.dao",
@@ -55,7 +48,7 @@ import java.util.Collections;
         excludeFilters = @ComponentScan.Filter(IgnoreDuringScan.class)
 )
 @EntityScan("language.contentandrepository.persistence.entity")
-public class LanguageApiTest {
+public class LanguageApiTest  {
 
     public static void main(String[] args) throws IOException {
         runSpringApplication(args);
@@ -83,15 +76,6 @@ public class LanguageApiTest {
     public TestRestTemplate testRestTemplate() {
         return new TestRestTemplate();
     }
-
-//    @Bean
-//    public GraphQLSchema schema() {
-//        System.out.println("language.LanguageApiTest.schema");
-//        var schemaFIle = getClass().getClassLoader().getResource("graphql/schema.graphqls");
-//        System.out.println("schemaFIle = " + schemaFIle);
-//        return null;
-//    }
-
 
 
 

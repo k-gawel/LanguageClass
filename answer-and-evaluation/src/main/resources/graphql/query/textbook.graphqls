@@ -2,7 +2,7 @@ type Query {
 
     getTextbook(id: ID): Textbook,
     findTextbook(criteria: TextbookCriteria): [Textbook],
-    
+
     getChapter(id: ID): Chapter.
     findChapter(criteria: ChapterCriteria): [Chapter],
 
@@ -10,6 +10,6 @@ type Query {
     findExample(criteria: ExampleCriteria): [Example],
 
     getExercise(id: ID): Exercise,
-    findExercise(criteria: ExerciseCriteria): [Exercise]
+    findExercise(criteria: ExerciseCriteria): [Exercise],
 
 }
