@@ -1,7 +1,14 @@
 package language.appconfig.config;
 
+import com.coxautodev.graphql.tools.ObjectMapperConfigurer;
+import com.coxautodev.graphql.tools.ObjectMapperConfigurerContext;
 import com.coxautodev.graphql.tools.SchemaParserDictionary;
+import com.coxautodev.graphql.tools.SchemaParserOptions;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import graphql.schema.*;
+import language.contentandrepository.criteria.DomainIDDeserializer;
+import language.contentandrepository.model.DomainID;
 import language.contentandrepository.model.domain.answerandevaluation.ExerciseAnswer;
 import language.contentandrepository.model.domain.question.AnswerAQuestion;
 import language.contentandrepository.model.domain.question.ChooseAWord;
@@ -28,7 +35,6 @@ public class GraphQLConfig {
 
     @Bean
     public SchemaParserDictionary schemaParserDictionary() {
-
         return new SchemaParserDictionary()
             .add(classes);
     }
@@ -62,6 +68,20 @@ public class GraphQLConfig {
 
     }
 
+    @Bean
+    public SchemaParserOptions schemaParserOptions() {
+        var configurer = new ObjectMapperConfigurer() {
+            @Override
+            public void configure(ObjectMapper mapper, ObjectMapperConfigurerContext context) {
+                var module = new SimpleModule();
+                module.addDeserializer(DomainID.class, new DomainIDDeserializer());
+                mapper.registerModule(module);
+            }
+        };
+
+        return SchemaParserOptions.newOptions()
+                .objectMapperConfigurer(configurer).build();
+    }
 
 
 }
