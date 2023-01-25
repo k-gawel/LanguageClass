@@ -43,7 +43,7 @@ public class ExerciseAnswerServiceTest_createExerciseAnswer {
     );
 
     private Executable create(ExerciseAnswerCreateInput input) {
-        return () -> exerciseAnswerService.createExerciseAnswer(input);
+        return () -> exerciseAnswerService.create(input);
     }
 
 }

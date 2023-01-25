@@ -13,7 +13,7 @@ public class CriteriaUtils {
 
 
 
-    public static boolean containsOrEmpty(Collection<DomainID> collection, DomainID domainID) {
+    public static boolean containsOrEmpty(Collection collection, Object domainID) {
         return isEmpty(collection) || collection.contains(domainID);
     }
 

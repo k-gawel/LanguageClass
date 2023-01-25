@@ -5,8 +5,8 @@ import language.contentandrepository.model.domain.answerandevaluation.ExerciseAn
 import language.contentandrepository.repository.answerandevalution.AnswerAndEvaluationRepository;
 import language.contentandrepository.repository.textbook.ExerciseRepository;
 import language.contentandrepository.repository.user.TeacherRepository;
-import language.graphql.answerandevaluation.input.ExerciseAnswerInput;
 import language.service.service.answerandevaluation.inputs.ExerciseAnswerCreateInput;
+import language.service.service.answerandevaluation.inputs.ExerciseAnswerUpdateInput;
 import language.service.service.answerandevaluation.services.ExerciseAnswerService;
 import language.service.service.eventpublisher.DomainEvent;
 import language.service.service.eventpublisher.PublishEvent;
@@ -27,7 +27,7 @@ public class PublisherExerciseAnswerService implements ExerciseAnswerService {
     private final AnswerAndEvaluationRepository answerAndEvaluationRepository;
 
     @PublishEvent(DomainEvent.EXERCISE_ANSWER_CREATED)
-    public ExerciseAnswer createExerciseAnswer(ExerciseAnswerCreateInput input) {
+    public ExerciseAnswer create(ExerciseAnswerCreateInput input) {
 
         return null;
     }
@@ -35,7 +35,7 @@ public class PublisherExerciseAnswerService implements ExerciseAnswerService {
 
     @PublishEvent(DomainEvent.EXERCISE_ANSWER_UPDATED)
     @Override
-    public ExerciseAnswer updateExerciseAnswer(ExerciseAnswerInput input) {
+    public ExerciseAnswer update(ExerciseAnswerUpdateInput input) {
         return null;
     }
 

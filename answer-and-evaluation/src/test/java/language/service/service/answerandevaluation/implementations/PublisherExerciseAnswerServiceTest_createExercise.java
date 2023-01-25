@@ -49,7 +49,7 @@ public class PublisherExerciseAnswerServiceTest_createExercise {
                 student, exercise, questionAnswers
         );
 
-        assertThrows(IllegalArgumentException.class, () -> exerciseAnswerService.createExerciseAnswer(input));
+        assertThrows(IllegalArgumentException.class, () -> exerciseAnswerService.create(input));
     }
 
     @Test
@@ -64,7 +64,7 @@ public class PublisherExerciseAnswerServiceTest_createExercise {
                 questionAnswers
         );
 
-        assertThrows(IllegalArgumentException.class, () -> exerciseAnswerService.createExerciseAnswer(input));
+        assertThrows(IllegalArgumentException.class, () -> exerciseAnswerService.create(input));
     }
 
 
@@ -91,7 +91,7 @@ public class PublisherExerciseAnswerServiceTest_createExercise {
                 clock.now()
                 );
 
-        var actualAnswer = exerciseAnswerService.createExerciseAnswer(input);
+        var actualAnswer = exerciseAnswerService.create(input);
 
         assertEquals(expectedAnswer, actualAnswer);
         assertTrue(exerciseAnswerRepository.findById(expectedAnswer.id()).isPresent());

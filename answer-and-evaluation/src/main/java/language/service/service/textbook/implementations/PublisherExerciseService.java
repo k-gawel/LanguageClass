@@ -60,7 +60,7 @@ public class PublisherExerciseService implements ExerciseService {
             if(input.questionType().equals(exercise.questionType()))
                 throw new RuntimeException("Question type must be different from previous.");
             if(exercise.questions().stream().anyMatch(q ->  !q.type().equals(input.questionType().questionClass())))
-                throw new RuntimeException("Can't change type of exercise while it has colliding questions already in");
+                throw new RuntimeException("Can't change type of exerciseAnswer while it has colliding questions already in");
 
             newQuestionType = Optional.of(input.questionType());
         }
