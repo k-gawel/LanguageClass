@@ -1,0 +1,30 @@
+input QuestionAnswerInput {
+        id: ID,
+        question: ID,
+        author: ID,
+        answers: [ID]
+}
+
+input QuestionEvaluationInput {
+        id: ID,
+        answer: ID,
+        author: ID,
+        comments: [String],
+        score: Int
+}
+
+input ExerciseAnswerInput {
+        id: ID,
+        exercise: ID,
+        author: ID,
+        questionAnswers: [QuestionAnswerInput],
+        questionAnswerIds: [ID]
+}
+
+input ExerciseEvaluationInput {
+        answer: ID,
+        author: ID,
+        questionEvaluations: [ID],
+        comment: String,
+        rating: Int
+}

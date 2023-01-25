@@ -1,0 +1,15 @@
+type Mutation {
+
+    createQuestionAnswer(input: QuestionAnswerInput): QuestionAnswer,
+    updateQuestionAnswer(input: QuestionAnswerInput): QuestionAnswer,
+
+    createQuestionEvaluation(input: QuestionEvaluationInput): QuestionEvaluation,
+    updateQuestionEvaluation(input: QuestionEvaluationInput): QuestionEvaluation,
+
+    createExerciseAnswer(input: ExerciseAnswerInput): ExerciseAnswer,
+    updateExerciseAnswer(input: ExerciseAnswerInput): ExerciseAnswer,
+
+    createExerciseEvaluation(input: ExerciseEvaluationInput): ExerciseEvaluation,
+    updateExerciseEvaluation(input: ExerciseEvaluationInput): ExerciseEvaluation
+
+}
