@@ -4,6 +4,7 @@ import language.appconfig.config.IgnoreDuringScan;
 import language.appconfig.security.MicroserviceAppUserProvider;
 import language.appconfig.security.MockedAppUserProvider;
 import language.contentandrepository.repository.impl.*;
+import language.contentandrepository.repository.impl.textbook.BaseTextbookRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -32,7 +33,9 @@ import java.util.Collections;
                         MockedAppUserRepository.class,
                         MockedTeacherRepository.class,
                         MockedStudentRepository.class,
-                        MockedAppUserProvider.class})
+                        MockedAppUserProvider.class,
+                        MockedTextbookRepository.class
+                })
         },
         excludeFilters = {
         @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = {
@@ -41,6 +44,7 @@ import java.util.Collections;
                 BaseAppUserRepository.class,
                 BaseTeacherRepository.class,
                 BaseStudentRepository.class,
+                BaseTextbookRepository.class
         })
 })
 @EnableJpaRepositories(basePackages="language.contentandrepository.persistence.dao",

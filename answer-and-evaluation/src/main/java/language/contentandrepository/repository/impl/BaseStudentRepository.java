@@ -18,5 +18,4 @@ public class BaseStudentRepository extends BaseContentRepository<Student, Studen
                                  StudentJpa.ID idsJpaRepository) {
         super(Student.class, entityToModelMapper, new DomainCache<>(), jpaRepository, idsJpaRepository);
     }
-
 }

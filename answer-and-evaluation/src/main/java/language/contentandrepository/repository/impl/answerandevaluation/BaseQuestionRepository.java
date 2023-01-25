@@ -31,6 +31,11 @@ public class BaseQuestionRepository implements QuestionRepository {
     }
 
     @Override
+    public Class<Question> provides() {
+        return Question.class;
+    }
+
+    @Override
     public List<Question> find(Predicate<Question> predicate) {
         return repositories.values().stream()
                 .flatMap(r -> r.find(predicate).stream())

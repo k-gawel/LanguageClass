@@ -19,6 +19,11 @@ public class MockedTeacherRepository  implements TeacherRepository   {
             .toList();
 
     @Override
+    public Class<Teacher> provides() {
+        return Teacher.class;
+    }
+
+    @Override
     public List<Teacher> find(Predicate<Teacher> predicate) {
         return new ArrayList<>(users.stream().filter(predicate).toList());
     }

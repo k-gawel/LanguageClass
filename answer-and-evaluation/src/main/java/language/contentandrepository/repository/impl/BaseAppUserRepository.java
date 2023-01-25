@@ -33,6 +33,11 @@ public class BaseAppUserRepository implements AppUserRepository {
     }
 
     @Override
+    public Class<AppUser> provides() {
+        return AppUser.class;
+    }
+
+    @Override
     public Optional<AppUser> findById(DomainID<AppUser> id) {
         return findById(id.id());
     }

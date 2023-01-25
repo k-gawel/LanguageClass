@@ -33,6 +33,11 @@ public class BaseChapterContentRepository implements ChapterContentRepository {
     }
 
     @Override
+    public Class<ChapterContent> provides() {
+        return ChapterContent.class;
+    }
+
+    @Override
     public List<ChapterContent> find(Predicate<ChapterContent> predicate) {
         var result = new ArrayList<ChapterContent>();
         result.addAll(exerciseRepository.find(predicate::test));

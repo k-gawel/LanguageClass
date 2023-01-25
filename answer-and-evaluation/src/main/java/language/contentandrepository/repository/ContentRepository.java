@@ -10,6 +10,12 @@ import java.util.function.Predicate;
 
 public interface ContentRepository<E extends Domain> {
 
+    Class<E> provides();
+
+    default boolean doesProvide(Class<? extends Domain> type) {
+        return provides().equals(type);
+    }
+
     List<E> find(Predicate<E> predicate);
 
     Optional<E> findById(DomainID<E> id);
@@ -33,4 +39,5 @@ public interface ContentRepository<E extends Domain> {
     void delete(E object);
 
     boolean isPresent(E object);
+
 }

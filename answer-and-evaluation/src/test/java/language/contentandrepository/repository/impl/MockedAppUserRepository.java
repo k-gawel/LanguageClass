@@ -20,7 +20,12 @@ public class MockedAppUserRepository implements AppUserRepository {
             new Student(new DomainID<>(Student.class, "student_1"), "student 1"),
             new Student(new DomainID<>(Student.class, "student_2"), "student 2")
     );
-    
+
+    @Override
+    public Class<AppUser> provides() {
+        return AppUser.class;
+    }
+
     @Override
     public List<AppUser> find(Predicate<AppUser> predicate) {
         return new ArrayList<>(users.stream().filter(predicate).toList());

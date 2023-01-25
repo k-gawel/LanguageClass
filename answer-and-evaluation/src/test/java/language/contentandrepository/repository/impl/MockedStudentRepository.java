@@ -19,6 +19,11 @@ public class MockedStudentRepository implements StudentRepository {
             .toList();
 
     @Override
+    public Class<Student> provides() {
+        return Student.class;
+    }
+
+    @Override
     public List<Student> find(Predicate<Student> predicate) {
         return new ArrayList<>(users.stream().filter(predicate).toList());
     }

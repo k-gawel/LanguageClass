@@ -32,6 +32,11 @@ public class DummyContentRepository<E extends Domain> implements ContentReposito
         this.objectType = objectType;
     }
 
+    @Override
+    public Class<E> provides() {
+        return objectType;
+    }
+
     public List<E> find(Predicate<E> predicate) {
         return list.stream().filter(predicate).toList();
     }

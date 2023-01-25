@@ -33,6 +33,11 @@ public class BaseContentRepository<D extends Domain, E extends IdentifiableEntit
         this.domainIdGenerator = new DomainIdGenerator<>(domainCache, idsJpaRepository);
     }
 
+    @Override
+    public Class<D> provides() {
+        return objectClass;
+    }
+
     public List<D> find(Predicate<D> predicate) {
         var result = domainCache.getAll().stream().filter(predicate).toList();
         return new ArrayList<>(result);
