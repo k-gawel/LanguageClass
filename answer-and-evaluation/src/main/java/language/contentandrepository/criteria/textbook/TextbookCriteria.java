@@ -1,5 +1,6 @@
 package language.contentandrepository.criteria.textbook;
 
+import language.contentandrepository.criteria.DomainCriteria;
 import language.contentandrepository.model.DomainID;
 import language.contentandrepository.model.domain.textbook.Chapter;
 import language.contentandrepository.model.domain.textbook.Textbook;
@@ -19,7 +20,7 @@ public record TextbookCriteria(
         List<DomainID<Chapter>> containedChapters,
         LocalDateTime after,
         LocalDateTime before
-) {
+) implements DomainCriteria<Textbook> {
 
     @Builder(access = AccessLevel.PUBLIC)
     public TextbookCriteria {}

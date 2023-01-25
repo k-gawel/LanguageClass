@@ -1,5 +1,6 @@
 package language.contentandrepository.criteria.textbook;
 
+import language.contentandrepository.criteria.DomainCriteria;
 import language.contentandrepository.model.DomainID;
 import language.contentandrepository.model.domain.question.Question;
 import language.contentandrepository.model.domain.question.QuestionType;
@@ -13,7 +14,7 @@ public record ExerciseCriteria(
         String title,
         List<QuestionType> questionTypes,
         List<DomainID<Question>> containsQuestion
-) {
+) implements DomainCriteria<Exercise> {
 
     @Builder public ExerciseCriteria {}
 

@@ -1,5 +1,6 @@
 package language.contentandrepository.criteria.textbook;
 
+import language.contentandrepository.criteria.DomainCriteria;
 import language.contentandrepository.model.DomainID;
 import language.contentandrepository.model.domain.textbook.Chapter;
 import language.contentandrepository.model.domain.textbook.ChapterContent;
@@ -13,7 +14,7 @@ public record ChapterCriteria(
         String name,
         List<DomainID<ChapterContent>> containingContent,
         List<DomainID<Textbook>> textbooks
-) {
+) implements DomainCriteria<Chapter> {
 
     @Builder public ChapterCriteria {}
 

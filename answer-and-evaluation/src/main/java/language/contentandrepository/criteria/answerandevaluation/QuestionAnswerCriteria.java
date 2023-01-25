@@ -1,5 +1,6 @@
 package language.contentandrepository.criteria.answerandevaluation;
 
+import language.contentandrepository.criteria.DomainCriteria;
 import language.contentandrepository.model.DomainID;
 import language.contentandrepository.model.domain.answerandevaluation.QuestionAnswer;
 import language.contentandrepository.model.domain.question.Question;
@@ -16,7 +17,7 @@ public record QuestionAnswerCriteria(
         Boolean evaluated,
         LocalDateTime createdAfter,
         LocalDateTime createdBefore
- ) {
+ ) implements DomainCriteria<QuestionAnswer> {
 
   @Builder public QuestionAnswerCriteria {}
 

@@ -1,5 +1,6 @@
 package language.contentandrepository.criteria.answerandevaluation;
 
+import language.contentandrepository.criteria.DomainCriteria;
 import language.contentandrepository.model.DomainID;
 import language.contentandrepository.model.domain.answerandevaluation.QuestionAnswer;
 import language.contentandrepository.model.domain.answerandevaluation.QuestionEvaluation;
@@ -19,7 +20,7 @@ public record QuestionEvaluationCriteria(
         List<DomainID<Student>> students,
         LocalDateTime after,
         LocalDateTime before
-) {
+) implements DomainCriteria<QuestionEvaluation> {
 
     @Builder public QuestionEvaluationCriteria {}
 
